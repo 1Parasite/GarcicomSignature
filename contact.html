@@ -28,7 +28,6 @@
     padding: 0 0 60px;
   }
 
-  /* Hero header */
   .hero {
     width: 100%;
     background: linear-gradient(140deg, var(--navy) 0%, #1e2d7d 60%, #3a3fbf 100%);
@@ -102,7 +101,6 @@
     z-index: 1;
   }
 
-  /* Card that overlaps hero */
   .card-area {
     width: 100%;
     max-width: 440px;
@@ -115,7 +113,6 @@
     gap: 14px;
   }
 
-  /* Contact item cards */
   .contact-card {
     background: var(--white);
     border-radius: 16px;
@@ -178,13 +175,11 @@
     flex-shrink: 0;
   }
 
-  /* Color variants */
   .icon-email   { background: #EEF2FF; }
   .icon-phone   { background: #EDFAF3; }
   .icon-whatsapp{ background: #E7FAF0; }
   .icon-linkedin{ background: #EBF5FB; }
 
-  /* Section label */
   .section-label {
     font-size: 0.68rem;
     font-weight: 700;
@@ -195,7 +190,6 @@
     margin-top: 6px;
   }
 
-  /* MS brand footer */
   .brand-footer {
     margin-top: 28px;
     width: 100%;
@@ -234,7 +228,6 @@
 </head>
 <body>
 
-<!-- Hero -->
 <div class="hero">
   <img class="ms-logo"
     src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png"
@@ -244,7 +237,6 @@
   <div class="hero-title" id="hero-title">Function</div>
 </div>
 
-<!-- Contact cards -->
 <div class="card-area">
 
   <div class="section-label">Contact Details</div>
@@ -300,7 +292,6 @@
 
 </div>
 
-<!-- Brand footer -->
 <div class="brand-footer">
   <div class="brand-card">
     <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png" alt="MS Solutions">
@@ -322,13 +313,11 @@
     return '+216 ' + n;
   }
 
-  // Hero
   const initials = (name.charAt(0) + surname.charAt(0)).toUpperCase();
   document.getElementById('avatar-initials').textContent = initials;
   document.getElementById('hero-name').textContent  = `${name} ${surname.toUpperCase()}`;
   document.getElementById('hero-title').textContent = func;
 
-  // Email — set via textContent so no proxy can obfuscate it
   if (email) {
     document.getElementById('val-email').textContent = email;
     document.getElementById('card-email').href = 'mailto:' + email;
@@ -346,7 +335,7 @@
   if (linkedin) {
     document.getElementById('card-linkedin').style.display = 'flex';
     document.getElementById('card-linkedin').href = linkedin;
-    // show clean handle
+    
     try {
       const url = new URL(linkedin);
       const parts = url.pathname.replace(/\/+$/, '').split('/');

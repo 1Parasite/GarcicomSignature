@@ -46,7 +46,6 @@
             <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png" alt="MS Solutions" width="190" style="display:block;width:190px;height:auto;">
           </td>
 
-          <!-- Info -->
           <td valign="top" style="padding:0 12px 0 36px;">
 
             <!-- Name -->
@@ -57,7 +56,6 @@
             <!-- Function -->
             <div id="sig-function" style="font-family:'Calibri',Arial,sans-serif;font-weight:300;font-size:18px;color:#8788FF;line-height:1.4;margin-bottom:6px;">Function</div>
 
-            <!-- Email row — built entirely by JS, no email text in HTML so Cloudflare cannot touch it -->
             <div id="sig-email-row" style="margin-bottom:4px;font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;"></div>
 
             <!-- Phone -->
@@ -124,7 +122,7 @@
               </tr>
               <tr>
                 <td width="20" height="20" valign="bottom" align="left" style="padding:1px 0 0 0;line-height:0;font-size:0;">
-                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/egez.png" width="20" height="20" style="display:block;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png" width="20" height="20" style="display:block;">
                 </td>
                 <td style="padding:0;line-height:0;font-size:0;"></td>
                 <td width="20" height="20" valign="bottom" align="right" style="padding:1px 0 0 0;line-height:0;font-size:0;">
@@ -140,14 +138,12 @@
     </td>
   </tr>
 
-  <!-- Banner -->
   <tr>
     <td style="padding:0;">
       <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/bannner.png" alt="" width="750" style="display:block;width:750px;height:auto;border:0;outline:none;text-decoration:none;">
     </td>
   </tr>
 
-  <!-- Confidentiality -->
   <tr>
     <td style="padding:6px 28px 7px 28px;background-color:#FFFFFF;">
       <p style="font-family:'Calibri',Arial,sans-serif;font-style:italic;font-size:9px;color:#0C144E;line-height:1.45;margin:0;">Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.</p>
@@ -179,13 +175,10 @@
     return '+216 ' + n;
   }
 
-  // Name & function
   document.getElementById('sig-name').textContent     = name;
   document.getElementById('sig-surname').textContent  = surname.toUpperCase();
   document.getElementById('sig-function').textContent = func;
 
-  // Email — injected entirely by JS as a plain text node, no email string ever in HTML
-  // This prevents Cloudflare (and any proxy) from ever finding and obfuscating it
   var emailRow = document.getElementById('sig-email-row');
   var emailText = document.createTextNode(email);
   emailRow.appendChild(emailText);
@@ -205,7 +198,7 @@
     document.getElementById('booking-link').href = meetLink;
   }
 
-  // QR — points to contact.html with all params embedded in URL
+  // QR
   const contactParams = new URLSearchParams({ phone: rawPhone, name, surname, func, email, linkedin });
   const basePath      = window.location.href.split('?')[0].replace(/signature\.html$/i, '');
   const contactURL    = basePath + 'contact.html?' + contactParams.toString();
@@ -222,7 +215,7 @@
     if (canvas) document.getElementById('qr-img').src = canvas.toDataURL('image/png');
   }, 250);
 
-  // ── Copy signature ──────────────────────────────────────────────
+  // Copy signature
   function copySignature() {
     var sigHTML = document.getElementById('signature-wrapper').innerHTML;
     if (navigator.clipboard && window.ClipboardItem) {

@@ -134,7 +134,6 @@
   .dual-row { display: flex; gap: 10px; }
   .dual-row .input-wrapper { flex: 1; }
 
-  /* QR */
   .qr-section { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 8px 0 24px; }
   .qr-frame { position: relative; padding: 18px; background: var(--purple-bg); border-radius: 16px; }
   .qr-frame::before { content:''; position:absolute; top:6px; left:6px; width:22px; height:22px; border:3px solid var(--purple); border-right:none; border-bottom:none; border-radius:4px 0 0 0; }
@@ -148,7 +147,6 @@
   .save-label { font-size:0.78rem; color:var(--text-dim); letter-spacing:0.03em; font-weight:600; }
   .qr-note { font-size:0.71rem; color:var(--text-dim); text-align:center; line-height:1.6; max-width:280px; }
 
-  /* Button */
   .btn-row { display: flex; gap: 12px; }
   .btn {
     flex:1; height:48px; border:none; border-radius:12px;
@@ -254,7 +252,7 @@
 
   <div class="divider"></div>
 
-  <!-- Google Meet (optional) -->
+  <!-- Google Meet -->
   <div class="field">
     <label>Google Meet / Booking Link <span class="opt-tag">Optional</span></label>
     <div class="input-wrapper url-input" id="wrap-meet">
@@ -304,13 +302,10 @@
   let debounceTimer;
   let qrGenerated = false;
 
-  // Regular fields: refresh QR after 1s idle
   ['name-input','surname-input','email-input','function-input'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => scheduleQR(1000));
   });
-  // Phone: slightly faster since it's the trigger
   document.getElementById('phone-input').addEventListener('input', () => scheduleQR(800));
-  // LinkedIn: only refresh if QR already exists — avoids blank flash on first long URL paste
   document.getElementById('linkedin-input').addEventListener('input', () => {
     if (qrGenerated) scheduleQR(1200);
     else scheduleQR(1000);
@@ -340,7 +335,6 @@
     return `${base}contact.html?${params.toString()}`;
   }
 
-  // Off-screen scratch pad — render there first, then swap atomically so visible QR never blanks
   const _qrScratch = document.createElement('div');
   _qrScratch.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:160px;height:160px;';
   document.body.appendChild(_qrScratch);
@@ -354,7 +348,6 @@
       colorDark: '#0C144E', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
-    // Give QRCode lib time to finish drawing, then swap in one frame
     setTimeout(() => {
       const canvas = _qrScratch.querySelector('canvas');
       if (!canvas) return;
