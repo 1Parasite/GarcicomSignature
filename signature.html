@@ -6,24 +6,18 @@
 <title>Signature</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background-color: #F9F9F9; font-family: 'Calibri', Arial, sans-serif; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-
   .page-topbar { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 750px; }
   .page-topbar img { height: 36px; width: auto; }
-
   .page-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #8788FF; width: 100%; max-width: 750px; }
-
   .action-row { display: flex; gap: 12px; width: 100%; max-width: 750px; }
   .btn { flex: 1; height: 44px; border: none; border-radius: 10px; font-family: 'Calibri', Arial, sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; justify-content: center; text-decoration: none; }
   .btn-primary { background: #0C144E; color: #fff; }
   .btn-primary:hover { background: #1a2d6b; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(12,20,78,.22); }
   .btn-secondary { background: #fff; color: #8788FF; border: 2px solid #C5C6FF; }
   .btn-secondary:hover { background: #ECECFF; transform: translateY(-1px); }
-
   #qr-gen { display: none; }
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   .page-topbar, .page-label, #signature-wrapper, .action-row { animation: fadeUp 0.4s ease both; }
   .page-topbar       { animation-delay: 0s; }
@@ -47,35 +41,48 @@
       <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
         <tr>
 
+          <!-- Logo -->
           <td width="200" valign="middle" style="padding-right:16px;padding-bottom:8px;">
             <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png" alt="MS Solutions" width="190" style="display:block;width:190px;height:auto;">
           </td>
 
-          <td valign="top" style="padding:0 12px;">
+          <!-- Info -->
+          <td valign="top" style="padding:0 12px 0 36px;">
+
+            <!-- Name -->
             <div style="font-family:'Calibri',Arial,sans-serif;font-weight:700;font-size:30px;color:#0C144E;line-height:1.15;margin-bottom:2px;letter-spacing:-0.5px;">
               <span id="sig-name">Name</span> <span id="sig-surname" style="font-weight:900;">SURNAME</span>
             </div>
+
+            <!-- Function -->
             <div id="sig-function" style="font-family:'Calibri',Arial,sans-serif;font-weight:300;font-size:18px;color:#8788FF;line-height:1.4;margin-bottom:6px;">Function</div>
 
+            <!-- Email — plain span, JS fills text + href, no mailto in HTML so CF never touches it -->
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
-              <tr><td style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;"><p id="sig-email">name.surname@mssolutions-group.com</p></td></tr>
+              <tr>
+                <td style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;">
+                  <span id="sig-email" style="color:#0C144E;font-family:'Calibri',Arial,sans-serif;font-size:16px;">name.surname@mssolutions-group.com</span>
+                </td>
+              </tr>
             </table>
 
+            <!-- Phone -->
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
               <tr>
                 <td width="22" valign="middle" style="padding-right:7px;">
                   <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-03.png" alt="" width="20" height="20" style="display:block;">
                 </td>
                 <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;">
-                  <a id="phone-link" href="#" style="color:#0C144E;text-decoration:none;border-bottom:none;">+216 00 000 000</a>
+                  <span id="sig-phone" style="color:#0C144E;font-family:'Calibri',Arial,sans-serif;font-size:16px;">+216 00 000 000</span>
                 </td>
               </tr>
             </table>
 
+            <!-- LinkedIn + YouTube -->
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
               <tr>
                 <td width="22" valign="middle" style="padding-right:7px;">
-                  <a href="https://www.linkedin.com/company/mss-group-sparking-trusted-payment/" target="_blank" style="text-decoration:none;">
+                  <a id="linkedin-link" href="https://www.linkedin.com/company/mss-group-sparking-trusted-payment/" target="_blank" style="text-decoration:none;">
                     <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-05.png" alt="LinkedIn" width="20" height="20" style="display:block;">
                   </a>
                 </td>
@@ -85,29 +92,36 @@
                   </a>
                 </td>
                 <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;">
-                  <p style="color:#0C144E;text-decoration:none;">MS Solutions Group</p>
+                  <span style="color:#0C144E;">MS Solutions Group</span>
                 </td>
               </tr>
             </table>
 
+            <!-- Booking -->
             <table cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td width="22" valign="middle" style="padding-right:7px;">
                   <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png" alt="" width="20" height="20" style="display:block;">
                 </td>
                 <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;">
-                  <a id="booking-link" href="#" target="_blank" style="color:#0C144E;text-decoration:none;border-bottom:none;">Booking a meeting with me</a>
+                  <a id="booking-link" href="#" target="_blank" style="color:#0C144E;text-decoration:none;">Booking a meeting with me</a>
                 </td>
               </tr>
             </table>
+
           </td>
 
+          <!-- QR code -->
           <td width="140" valign="middle" align="center" style="padding-left:8px;">
             <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;border-collapse:collapse;">
               <tr>
-                <td width="20" height="20" valign="top" align="left" style="padding:0 0 1px 0;line-height:0;font-size:0;"><img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png" width="20" height="20" style="display:block;"></td>
+                <td width="20" height="20" valign="top" align="left" style="padding:0 0 1px 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png" width="20" height="20" style="display:block;">
+                </td>
                 <td width="100" style="padding:0;line-height:0;font-size:0;"></td>
-                <td width="20" height="20" valign="top" align="right" style="padding:0 0 1px 0;line-height:0;font-size:0;"><img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png" width="20" height="20" style="display:block;"></td>
+                <td width="20" height="20" valign="top" align="right" style="padding:0 0 1px 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png" width="20" height="20" style="display:block;">
+                </td>
               </tr>
               <tr>
                 <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;">
@@ -115,12 +129,16 @@
                 </td>
               </tr>
               <tr>
-                <td width="20" height="20" valign="bottom" align="left" style="padding:1px 0 0 0;line-height:0;font-size:0;"><img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/egez.png" width="20" height="20" style="display:block;"></td>
+                <td width="20" height="20" valign="bottom" align="left" style="padding:1px 0 0 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/egez.png" width="20" height="20" style="display:block;">
+                </td>
                 <td style="padding:0;line-height:0;font-size:0;"></td>
-                <td width="20" height="20" valign="bottom" align="right" style="padding:1px 0 0 0;line-height:0;font-size:0;"><img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png" width="20" height="20" style="display:block;"></td>
+                <td width="20" height="20" valign="bottom" align="right" style="padding:1px 0 0 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png" width="20" height="20" style="display:block;">
+                </td>
               </tr>
             </table>
-            <div style="font-family:'Calibri',Arial,sans-serif;font-size:10px;color:#8788FF;text-align:center;margin-top:6px;">Save to mobile</div>
+            <div style="font-family:'Calibri',Arial,sans-serif;font-size:10px;color:#8788FF;text-align:center;margin-top:6px;">Reach out to me</div>
           </td>
 
         </tr>
@@ -128,12 +146,14 @@
     </td>
   </tr>
 
+  <!-- Banner -->
   <tr>
     <td style="padding:0;">
       <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/bannner.png" alt="" width="750" style="display:block;width:750px;height:auto;border:0;outline:none;text-decoration:none;">
     </td>
   </tr>
 
+  <!-- Confidentiality -->
   <tr>
     <td style="padding:6px 28px 7px 28px;background-color:#FFFFFF;">
       <p style="font-family:'Calibri',Arial,sans-serif;font-style:italic;font-size:8px;color:#0C144E;line-height:1.45;margin:0;">Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.</p>
@@ -145,97 +165,105 @@
 <div id="qr-gen" style="display:none;"></div>
 
 <div class="action-row">
-  <button onclick="window.location.href='PageEdit.html'" class="btn btn-secondary">← Edit Number</button>
+  <button onclick="window.location.href='PageEdit.html'" class="btn btn-secondary">← Edit</button>
   <button class="btn btn-primary" id="copy-btn" onclick="copySignature()">⎘ Copy Signature</button>
 </div>
 
 <script>
   const params   = new URLSearchParams(window.location.search);
   const rawPhone = (params.get('phone') || '').replace(/\D/g, '');
-  const meetLink = params.get('meet') || '';
-  const name     = params.get('name') || 'Name';
+  const meetLink = params.get('meet')    || '';
+  const name     = params.get('name')    || 'Name';
   const surname  = params.get('surname') || 'SURNAME';
-  const func     = params.get('func') || 'Function';
-  const email    = params.get('email') || 'name.surname@mssolutions-group.com';
+  const func     = params.get('func')    || 'Function';
+  const email    = params.get('email')   || 'name.surname@mssolutions-group.com';
+  const linkedin = params.get('linkedin')|| '';
 
   function formatPhone(n) {
-    if (n.length === 8) return `+216 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}`;
-    if (n.length === 9) return `+216 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}`;
+    if (n.length === 8) return '+216 ' + n.slice(0,2) + ' ' + n.slice(2,5) + ' ' + n.slice(5);
+    if (n.length === 9) return '+216 ' + n.slice(0,2) + ' ' + n.slice(2,5) + ' ' + n.slice(5);
     return '+216 ' + n;
   }
 
-  // Inject name & surname
-  document.getElementById('sig-name').textContent = name;
-  document.getElementById('sig-surname').textContent = surname.toUpperCase();
-
-  // Inject function
+  // Name & function
+  document.getElementById('sig-name').textContent     = name;
+  document.getElementById('sig-surname').textContent  = surname.toUpperCase();
   document.getElementById('sig-function').textContent = func;
 
-  // Inject email
+  // Email — textContent only, never innerHTML, never href in HTML
   document.getElementById('sig-email').textContent = email;
 
-  // Inject phone
-  const phoneEl = document.getElementById('phone-link');
+  // Phone
   if (rawPhone) {
-    phoneEl.textContent = formatPhone(rawPhone);
-    phoneEl.href = `tel:+216${rawPhone}`;
+    document.getElementById('sig-phone').textContent = formatPhone(rawPhone);
   }
 
-  // Inject meeting link
+  // LinkedIn personal profile
+  if (linkedin) {
+    document.getElementById('linkedin-link').href = linkedin;
+  }
+
+  // Booking / meet link
   if (meetLink) {
-    const bookingEl = document.getElementById('booking-link');
-    bookingEl.href = meetLink;
-    bookingEl.target = '_blank';
+    document.getElementById('booking-link').href = meetLink;
   }
 
-  // Generate QR
-  const waLink = rawPhone ? `https://wa.me/216${rawPhone}` : 'https://wa.me/21600000000';
+  // QR — points to contact.html with all params embedded in URL
+  const contactParams = new URLSearchParams({ phone: rawPhone, name, surname, func, email, linkedin });
+  const basePath      = window.location.href.split('?')[0].replace(/signature\.html$/i, '');
+  const contactURL    = basePath + 'contact.html?' + contactParams.toString();
+
   new QRCode(document.getElementById('qr-gen'), {
-    text: waLink, width: 100, height: 100,
+    text: contactURL,
+    width: 100, height: 100,
     colorDark: '#0C144E', colorLight: '#ffffff',
     correctLevel: QRCode.CorrectLevel.H
   });
-  setTimeout(() => {
-    const canvas = document.querySelector('#qr-gen canvas');
+
+  setTimeout(function() {
+    var canvas = document.querySelector('#qr-gen canvas');
     if (canvas) document.getElementById('qr-img').src = canvas.toDataURL('image/png');
   }, 250);
 
-  // Copy signature
+  // ── Copy signature ──────────────────────────────────────────────
   function copySignature() {
-    const sigHTML = document.getElementById('signature-wrapper').innerHTML;
+    var sigHTML = document.getElementById('signature-wrapper').innerHTML;
     if (navigator.clipboard && window.ClipboardItem) {
-      const htmlBlob = new Blob([sigHTML], { type: 'text/html' });
-      const textBlob = new Blob([document.getElementById('signature-wrapper').innerText], { type: 'text/plain' });
+      var htmlBlob = new Blob([sigHTML], { type: 'text/html' });
+      var textBlob = new Blob([document.getElementById('signature-wrapper').innerText], { type: 'text/plain' });
       navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
-        .then(() => showFeedback(true))
-        .catch(() => fallbackCopy(sigHTML));
+        .then(function() { showFeedback(true); })
+        .catch(function() { fallbackCopy(sigHTML); });
     } else {
       fallbackCopy(sigHTML);
     }
   }
 
   function fallbackCopy(html) {
-    const el = document.createElement('div');
+    var el = document.createElement('div');
     el.setAttribute('contenteditable', 'true');
     el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
     el.innerHTML = html;
     document.body.appendChild(el);
-    const range = document.createRange();
+    var range = document.createRange();
     range.selectNodeContents(el);
-    const sel = window.getSelection();
+    var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    const ok = document.execCommand('copy');
+    var ok = document.execCommand('copy');
     sel.removeAllRanges();
     document.body.removeChild(el);
     showFeedback(ok);
   }
 
   function showFeedback(success) {
-    const btn = document.getElementById('copy-btn');
+    var btn = document.getElementById('copy-btn');
     btn.textContent = success ? '✓ Copied!' : '✗ Try again';
     btn.style.background = success ? '#1a7a3a' : '#b03030';
-    setTimeout(() => { btn.textContent = '⎘ Copy Signature'; btn.style.background = ''; }, 2200);
+    setTimeout(function() {
+      btn.textContent = '⎘ Copy Signature';
+      btn.style.background = '';
+    }, 2200);
   }
 </script>
 </body>
