@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PageEdit</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --navy: #0C144E;
+    --navy-mid: #0C144E;
+    --purple: #8788FF;
+    --purple-mid: #787AEA;
+    --purple-light: #B2B3FF;
+    --purple-c5: #C5C6FF;
+    --purple-bg: #ECECFF;
+    --grey: #F9F9F9;
+    --white: #ffffff;
+    --text-dim: #787AEA;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--grey);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .logo-img { height: 48px; width: auto; object-fit: contain; }
+  .logo-fallback { display: none; }
+
+  .logo-mark {
+    width: 44px; height: 44px;
+    border: 2.5px solid var(--navy);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .logo-mark::before {
+    content: '';
+    width: 18px; height: 18px;
+    border: 2.5px solid var(--navy);
+    border-radius: 50%;
+    display: block;
+  }
+  .logo-mark::after {
+    content: '';
+    position: absolute;
+    width: 8px; height: 8px;
+    background: var(--navy);
+    border-radius: 50%;
+  }
+
+  .header-text h1 { font-size: 1.3rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+  .header-text span { font-size: 0.78rem; color: var(--purple); font-weight: 400; letter-spacing: 0.02em; }
+
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(13, 27, 75, 0.10), 0 2px 8px rgba(13,27,75,0.06);
+    padding: 40px;
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .card-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--purple-c5);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    background: var(--grey);
+  }
+  .input-wrapper:focus-within { border-color: var(--purple); background: var(--white); }
+
+  .input-prefix {
+    padding: 0 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    background: var(--purple-bg);
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border-right: 2px solid var(--purple-c5);
+    white-space: nowrap;
+  }
+
+  .input-wrapper input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--navy);
+    background: transparent;
+    height: 48px;
+    width: 100%;
+  }
+
+  /* URL input — no prefix, slightly different style */
+  .input-wrapper.url-input input {
+    font-size: 0.85rem;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 7px;
+    font-weight: 300;
+  }
+
+  /* Divider between fields */
+  .divider {
+    height: 1px;
+    background: var(--purple-bg);
+    margin: 0 -40px;
+  }
+
+  .qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .qr-frame {
+    position: relative;
+    padding: 18px;
+    background: var(--purple-bg);
+    border-radius: 16px;
+  }
+
+  .qr-frame::before, .qr-frame::after,
+  .corner-br, .corner-tl-inner {
+    content: '';
+    position: absolute;
+    width: 22px; height: 22px;
+    border-color: var(--purple);
+    border-style: solid;
+  }
+  .qr-frame::before { top: 6px; left: 6px; border-width: 3px 0 0 3px; border-radius: 4px 0 0 0; }
+  .qr-frame::after  { top: 6px; right: 6px; border-width: 3px 3px 0 0; border-radius: 0 4px 0 0; }
+
+  .corner-bl {
+    position: absolute; bottom: 6px; left: 6px;
+    width: 22px; height: 22px;
+    border: 3px solid var(--purple);
+    border-top: none; border-right: none;
+    border-radius: 0 0 0 4px;
+  }
+  .corner-br {
+    position: absolute; bottom: 6px; right: 6px;
+    width: 22px; height: 22px;
+    border: 3px solid var(--purple);
+    border-top: none; border-left: none;
+    border-radius: 0 0 4px 0;
+  }
+
+  #qr-output {
+    width: 160px; height: 160px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #qr-output canvas, #qr-output img { border-radius: 4px; }
+
+  .qr-placeholder {
+    width: 160px; height: 160px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px; color: var(--purple-light);
+  }
+  .qr-placeholder svg { opacity: 0.5; }
+  .qr-placeholder p { font-size: 0.72rem; text-align: center; font-weight: 400; opacity: 0.7; line-height: 1.5; }
+
+  .save-label { font-size: 0.78rem; color: var(--text-dim); letter-spacing: 0.03em; }
+
+  .btn-row { display: flex; gap: 12px; }
+
+  .btn {
+    flex: 1; height: 48px; border: none;
+    border-radius: 12px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: all 0.18s ease; letter-spacing: 0.01em;
+  }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-primary:hover { background: #1a2d6b; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,27,75,0.25); }
+  .btn-secondary { background: var(--purple-bg); color: var(--purple); border: 2px solid var(--purple-c5); }
+  .btn-secondary:hover { background: var(--purple-c5); transform: translateY(-1px); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .footer-band {
+    margin-top: 32px;
+    background: linear-gradient(135deg, var(--navy) 0%, #2a3a8a 100%);
+    border-radius: 14px;
+    padding: 18px 28px;
+    width: 100%; max-width: 520px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+  }
+  .footer-band p { font-size: 0.82rem; color: rgba(255,255,255,0.65); font-weight: 300; letter-spacing: 0.01em; }
+  .footer-band strong { color: var(--white); font-weight: 600; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card, .header, .footer-band { animation: fadeUp 0.45s ease both; }
+  .header      { animation-delay: 0s; }
+  .card        { animation-delay: 0.08s; }
+  .footer-band { animation-delay: 0.16s; }
+
+  @keyframes qrPop {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .qr-ready { animation: qrPop 0.25s cubic-bezier(.34,1.56,.64,1) both; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="assets/icones-ms-01.png" alt="MS Solutions Logo" />
+</div>
+
+<div class="card">
+  <div>
+    <p class="card-title">QR Code Editor</p>
+
+    <!-- Phone input -->
+    <div class="field">
+      <label>Phone / WhatsApp Number</label>
+      <div class="input-wrapper">
+        <span class="input-prefix">+216</span>
+        <input
+          type="tel"
+          id="phone-input"
+          placeholder="00 000 000"
+          maxlength="12"
+          inputmode="numeric"
+          autocomplete="off"
+        />
+      </div>
+      <p class="hint">Enter the number to encode in the QR code. The QR will link to a WhatsApp chat.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Meeting link input -->
+  <div class="field">
+    <label>Google Meet / Booking Link</label>
+    <div class="input-wrapper url-input">
+      <span class="input-prefix">🔗</span>
+      <input
+        type="url"
+        id="meet-input"
+        placeholder="https://meet.google.com/xxx-xxxx-xxx"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+    <p class="hint">This link will be attached to "Booking a meeting with me" in the signature.</p>
+  </div>
+
+  <div class="qr-section">
+    <div class="qr-frame">
+      <span class="corner-bl"></span>
+      <span class="corner-br"></span>
+      <div id="qr-output">
+        <div class="qr-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
+            <rect x="8" y="8" width="8" height="8" rx="1" fill="#7b7fd4"/>
+            <rect x="28" y="4" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
+            <rect x="32" y="8" width="8" height="8" rx="1" fill="#7b7fd4"/>
+            <rect x="4" y="28" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
+            <rect x="8" y="32" width="8" height="8" rx="1" fill="#7b7fd4"/>
+            <rect x="28" y="28" width="5" height="5" rx="1" fill="#7b7fd4"/>
+            <rect x="36" y="28" width="8" height="5" rx="1" fill="#7b7fd4"/>
+            <rect x="28" y="36" width="8" height="8" rx="1" fill="#7b7fd4"/>
+            <rect x="40" y="36" width="4" height="8" rx="1" fill="#7b7fd4"/>
+          </svg>
+          <p>Enter a number<br>to generate QR</p>
+        </div>
+      </div>
+    </div>
+    <span class="save-label">Save to mobile</span>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" id="generate-btn" onclick="goToSignature()">Next</button>
+  </div>
+</div>
+
+<div class="footer-band">
+  <p>End-to-end Payment. <strong>Global Standards.</strong> Market-Level Simplicity.</p>
+</div>
+
+<script>
+  let qrInstance = null;
+
+  const input = document.getElementById('phone-input');
+  let debounceTimer;
+
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      if (input.value.trim().length >= 7) generateQR();
+    }, 600);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') generateQR();
+  });
+
+  function goToSignature() {
+    const raw = input.value.replace(/\s+/g, '').replace(/\D/g, '');
+    if (!raw) {
+      input.focus();
+      document.querySelector('.input-wrapper').style.borderColor = '#ff4d4d';
+      setTimeout(() => document.querySelector('.input-wrapper').style.borderColor = '', 1200);
+      return;
+    }
+    const meetLink = document.getElementById('meet-input').value.trim();
+    let url = `signature.html?phone=${encodeURIComponent(raw)}`;
+    if (meetLink) url += `&meet=${encodeURIComponent(meetLink)}`;
+    window.location.href = url;
+  }
+
+  function generateQR() {
+    const raw = input.value.replace(/\s+/g, '').replace(/\D/g, '');
+    if (!raw) return;
+
+    const fullNumber = '216' + raw;
+    const waLink = `https://wa.me/${fullNumber}`;
+
+    const output = document.getElementById('qr-output');
+    output.innerHTML = '';
+
+    qrInstance = new QRCode(output, {
+      text: waLink,
+      width: 160,
+      height: 160,
+      colorDark: '#0C144E',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    output.classList.remove('qr-ready');
+    void output.offsetWidth;
+    output.classList.add('qr-ready');
+  }
+</script>
+</body>
+</html>

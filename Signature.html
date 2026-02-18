@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signature</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: #F9F9F9;
+    font-family: 'Gilroy', Arial, sans-serif;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 18px;
+  }
+
+  .page-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; max-width: 750px;
+  }
+  .page-topbar img { height: 36px; width: auto; }
+
+  .back-btn {
+    font-family: 'Gilroy', Arial, sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: #0C144E; background: #fff;
+    border: 2px solid #C5C6FF; border-radius: 10px;
+    padding: 7px 16px; text-decoration: none; transition: all 0.18s;
+  }
+  .back-btn:hover { background: #ECECFF; border-color: #8788FF; color: #8788FF; }
+
+  .page-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #8788FF; width: 100%; max-width: 750px;
+  }
+
+  .action-row { display: flex; gap: 12px; width: 100%; max-width: 750px; }
+
+  .btn {
+    flex: 1; height: 44px; border: none; border-radius: 10px;
+    font-family: 'Gilroy', Arial, sans-serif;
+    font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.18s;
+    display: flex; align-items: center; justify-content: center; text-decoration: none;
+  }
+  .btn-primary { background: #0C144E; color: #fff; }
+  .btn-primary:hover { background: #1a2d6b; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(12,20,78,.22); }
+  .btn-secondary { background: #fff; color: #8788FF; border: 2px solid #C5C6FF; }
+  .btn-secondary:hover { background: #ECECFF; transform: translateY(-1px); }
+
+  #qr-gen { display: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page-topbar, .page-label, #signature-wrapper, .action-row { animation: fadeUp 0.4s ease both; }
+  .page-topbar       { animation-delay: 0s; }
+  .page-label        { animation-delay: 0.05s; }
+  #signature-wrapper { animation-delay: 0.1s; }
+  .action-row        { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+
+<div class="page-topbar">
+  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/icones-ms-01.svg" alt="MS Solutions">
+</div>
+
+<div class="page-label">Preview — Email Signature</div>
+
+<div id="signature-wrapper">
+<table cellpadding="0" cellspacing="0" border="0" width="750" style="width:750px;background-color:#FFFFFF;border-collapse:collapse;font-family:'Gilroy',Arial,sans-serif;">
+
+  <tr>
+    <td style="padding:14px 28px 10px 28px;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+        <tr>
+
+          <td width="200" valign="middle" style="padding-right:16px;padding-bottom:8px;">
+            <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/icones-ms-01.svg"
+                 alt="MS Solutions" width="190" style="display:block;width:190px;height:auto;">
+          </td>
+
+          <td valign="top" style="padding:0 12px;">
+
+            <div style="font-family:'Gilroy',Arial,sans-serif;font-weight:700;font-size:26px;color:#0C144E;line-height:1.15;margin-bottom:2px;letter-spacing:-0.5px;">
+              <span>Name</span>
+              <span style="font-weight:900;">SURNAME</span>
+            </div>
+
+            <div style="font-family:'Gilroy',Arial,sans-serif;font-weight:300;font-size:14px;color:#8788FF;line-height:1.4;margin-bottom:6px;">
+              Function
+            </div>
+
+            <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
+              <tr>
+                <td style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
+                  <p>name.surname@mssolutions-group.com</p>
+                </td>
+              </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
+              <tr>
+                <td width="22" valign="middle" style="padding-right:7px;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/icones-ms-03.svg"
+                       alt="" width="20" height="20" style="display:block;">
+                </td>
+                <td valign="middle" style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
+                  <p id="phone-link" style="color:#0C144E;text-decoration:none;border-bottom:none;">+216 00 000 000</p>
+                </td>
+              </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
+              <tr>
+                <td width="22" valign="middle" style="padding-right:7px;">
+                    <a href="https://www.linkedin.com/company/mss-group-sparking-trusted-payment/" target="_blank" style="text-decoration:none;">
+                    <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/icones-ms-05.svg"
+                         alt="LinkedIn" width="20" height="20" style="display:block;">
+                  </a>
+                </td>
+                <td width="22" valign="middle" style="padding-right:7px;">
+                  <a href="https://www.youtube.com/channel/UCCVqglSGQvGJK5i_UdbApzA" target="_blank" style="text-decoration:none;">
+                    <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/icones-ms-06.svg"
+                         alt="YouTube" width="20" height="20" style="display:block;">
+                  </a>
+                </td>
+                <td valign="middle" style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
+                  <p style="color:#0C144E;text-decoration:none;">MS Solutions Group</p>
+                </td>
+              </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="22" valign="middle" style="padding-right:7px;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/icones-ms-04.svg"
+                       alt="" width="20" height="20" style="display:block;">
+                </td>
+                <td valign="middle" style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
+                  <a id="booking-link" href="#" target="_blank" style="color:#0C144E;text-decoration:none;border-bottom:none;">Booking a meeting with me</a>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+
+          <td width="140" valign="middle" align="center" style="padding-left:8px;">
+            <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;border-collapse:collapse;">
+              <tr>
+                <td width="20" height="20" valign="top" align="left" style="padding:0 0 1px 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/coins-04.svg" width="20" height="20" style="display:block;">
+                </td>
+                <td width="100" style="padding:0;line-height:0;font-size:0;"></td>
+                <td width="20" height="20" valign="top" align="right" style="padding:0 0 1px 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/coins-01.svg" width="20" height="20" style="display:block;">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;">
+                  <img id="qr-img" src="" alt="QR Code" width="100" height="100"
+                       style="display:block;width:100px;height:100px;border-radius:3px;">
+                </td>
+              </tr>
+              <tr>
+                <td width="20" height="20" valign="bottom" align="left" style="padding:1px 0 0 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/coins-03.svg" width="20" height="20" style="display:block;">
+                </td>
+                <td style="padding:0;line-height:0;font-size:0;"></td>
+                <td width="20" height="20" valign="bottom" align="right" style="padding:1px 0 0 0;line-height:0;font-size:0;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/coins-02.svg" width="20" height="20" style="display:block;">
+                </td>
+              </tr>
+            </table>
+            <div style="font-family:'Gilroy',Arial,sans-serif;font-size:10px;color:#8788FF;text-align:center;margin-top:6px;">Save to mobile</div>
+          </td>
+
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:0;">
+      <table cellpadding="0" cellspacing="0" border="0" width="750"
+             style="width:750px;height:72px;border-collapse:collapse;background:linear-gradient(to right,#0C144E 0%,#0C144E 35%,#2d3a8c 48%,#7279cf 60%,#9b9fe6 80%,#6b72d4 100%);">
+        <tr>
+          <td width="64" valign="middle" align="left" style="padding:0;line-height:0;font-size:0;">
+            <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/shape.svg"
+                 alt="" width="64" height="72" style="display:block;width:64px;height:72px;">
+          </td>
+          <td valign="middle" style="padding:0 0 0 4px;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td valign="middle" style="padding-right:12px;">
+                  <img src="https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/icones-ms-07.svg"
+                       alt="PCI Security Standards Council" height="38" style="display:block;height:38px;width:auto;">
+                </td>
+                <td valign="middle">
+                  <div style="font-family:'Gilroy',Arial,sans-serif;font-weight:bold;font-size:11px;color:#FFFFFF;line-height:1.5;">
+                    A top-tier PCI-certified<br>payment solutions provider
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td valign="middle" align="right" style="padding-right:20px;">
+            <div style="font-family:'Gilroy',Arial,sans-serif;font-weight:bold;font-size:11px;color:#0C144E;line-height:1.6;text-align:right;">
+              Turning payment complexity into trusted,<br>
+              end-to-end payment journeys at scale
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="padding:6px 28px 7px 28px;background-color:#FFFFFF;">
+      <p style="font-family:'Gilroy',Arial,sans-serif;font-style:italic;font-size:8px;color:#0C144E;line-height:1.45;margin:0;">
+        Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.
+      </p>
+    </td>
+  </tr>
+
+</table>
+</div>
+
+<div id="qr-gen" style="display:none;"></div>
+
+<div class="action-row">
+  <button onclick="window.location.href='PageEdit.html'" class="btn btn-secondary">← Edit Number</button>
+  <button class="btn btn-primary" id="copy-btn" onclick="copySignature()">⎘ Copy Signature</button>
+</div>
+
+<script>
+  const params   = new URLSearchParams(window.location.search);
+  const rawPhone = (params.get('phone') || '00000000').replace(/\D/g, '');
+  const meetLink = params.get('meet') || '';
+
+  function formatPhone(n) {
+    if (n.length === 8) return `+216 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}`;
+    if (n.length === 9) return `+216 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}`;
+    return '+216 ' + n;
+  }
+
+  // Inject phone
+  const phoneLink = document.getElementById('phone-link');
+  phoneLink.textContent = formatPhone(rawPhone);
+  phoneLink.href = `tel:+216${rawPhone}`;
+
+  // Inject meeting link
+  const bookingLink = document.getElementById('booking-link');
+  if (meetLink) {
+    bookingLink.href = meetLink;
+    bookingLink.target = '_blank';
+  }
+
+  // Generate QR
+  const waLink = `https://wa.me/216${rawPhone}`;
+  new QRCode(document.getElementById('qr-gen'), {
+    text: waLink,
+    width: 100,
+    height: 100,
+    colorDark: '#0C144E',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  setTimeout(() => {
+    const canvas = document.querySelector('#qr-gen canvas');
+    if (canvas) document.getElementById('qr-img').src = canvas.toDataURL('image/png');
+  }, 250);
+
+  // Copy signature
+  function copySignature() {
+    const sigHTML = document.getElementById('signature-wrapper').innerHTML;
+    if (navigator.clipboard && window.ClipboardItem) {
+      const htmlBlob = new Blob([sigHTML], { type: 'text/html' });
+      const textBlob = new Blob([document.getElementById('signature-wrapper').innerText], { type: 'text/plain' });
+      navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
+        .then(() => showFeedback(true))
+        .catch(() => fallbackCopy(sigHTML));
+    } else {
+      fallbackCopy(sigHTML);
+    }
+  }
+
+  function fallbackCopy(html) {
+    const el = document.createElement('div');
+    el.setAttribute('contenteditable', 'true');
+    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
+    el.innerHTML = html;
+    document.body.appendChild(el);
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    const ok = document.execCommand('copy');
+    sel.removeAllRanges();
+    document.body.removeChild(el);
+    showFeedback(ok);
+  }
+
+  function showFeedback(success) {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = success ? '✓ Copied!' : '✗ Try again';
+    btn.style.background = success ? '#1a7a3a' : '#b03030';
+    setTimeout(() => {
+      btn.textContent = '⎘ Copy Signature';
+      btn.style.background = '';
+    }, 2200);
+  }
+</script>
+</body>
+</html>
