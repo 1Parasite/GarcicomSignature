@@ -266,8 +266,6 @@
     </div>
   </a>
 
-  
-
   <!-- WhatsApp -->
   <a class="contact-card" id="card-whatsapp" href="#">
     <div class="card-icon icon-whatsapp">
@@ -312,7 +310,6 @@
 
 <script>
   const params  = new URLSearchParams(window.location.search);
-  const rawPhone = (params.get('phone') || '').replace(/\D/g,'');
   const name     = params.get('name')    || 'Name';
   const surname  = params.get('surname') || 'SURNAME';
   const func     = params.get('func')    || 'Function';
@@ -331,19 +328,18 @@
   document.getElementById('hero-name').textContent  = `${name} ${surname.toUpperCase()}`;
   document.getElementById('hero-title').textContent = func;
 
-  // Email
+  // Email — set via textContent so no proxy can obfuscate it
   if (email) {
     document.getElementById('val-email').textContent = email;
-    document.getElementById('card-email').href = `mailto:${email}`;
+    document.getElementById('card-email').href = 'mailto:' + email;
   }
 
-  // Phone
+  // WhatsApp
+  var rawPhone = (params.get('phone') || '').replace(/\D/g,'');
   if (rawPhone) {
-    const formatted = formatPhone(rawPhone);
-    document.getElementById('val-phone').textContent    = formatted;
-    document.getElementById('card-phone').href          = `tel:+216${rawPhone}`;
+    var formatted = formatPhone(rawPhone);
     document.getElementById('val-whatsapp').textContent = formatted;
-    document.getElementById('card-whatsapp').href       = `https://wa.me/216${rawPhone}`;
+    document.getElementById('card-whatsapp').href       = 'https://wa.me/216' + rawPhone;
   }
 
   // LinkedIn
