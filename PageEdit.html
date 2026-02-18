@@ -187,7 +187,7 @@
   </div>
 
   <div class="btn-row">
-    <button class="btn btn-primary" id="generate-btn" onclick="goToSignature()">Next</button>
+    <button class="btn btn-primary" id="generate-btn" onclick="goTosignature()">Next</button>
   </div>
 </div>
 
@@ -211,7 +211,7 @@
     if (e.key === 'Enter') goToSignature();
   });
 
-  function goToSignature() {
+  function goTosignature() {
     const raw     = input.value.replace(/\s+/g, '').replace(/\D/g, '');
     const meetLink  = document.getElementById('meet-input').value.trim();
     const name      = document.getElementById('name-input').value.trim();
@@ -241,7 +241,7 @@
 
     if (hasError) return;
 
-    let url = `Signature.html?phone=${encodeURIComponent(raw)}`;
+    let url = `signature.html?phone=${encodeURIComponent(raw)}`;
     if (meetLink) url += `&meet=${encodeURIComponent(meetLink)}`;
     if (name)     url += `&name=${encodeURIComponent(name)}`;
     if (surname)  url += `&surname=${encodeURIComponent(surname)}`;
