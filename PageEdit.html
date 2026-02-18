@@ -213,18 +213,34 @@
   });
 
   function goToSignature() {
-    const raw = input.value.replace(/\s+/g, '').replace(/\D/g, '');
-    if (!raw) {
-      input.focus();
-      document.querySelector('.input-wrapper').style.borderColor = '#ff4d4d';
-      setTimeout(() => document.querySelector('.input-wrapper').style.borderColor = '', 1200);
-      return;
-    }
+    const raw     = input.value.replace(/\s+/g, '').replace(/\D/g, '');
     const meetLink  = document.getElementById('meet-input').value.trim();
     const name      = document.getElementById('name-input').value.trim();
     const surname   = document.getElementById('surname-input').value.trim();
     const func      = document.getElementById('function-input').value.trim();
     const email     = document.getElementById('email-input').value.trim();
+
+    // Validate all fields
+    const fields = [
+      { val: name,      id: 'name-input' },
+      { val: surname,   id: 'surname-input' },
+      { val: func,      id: 'function-input' },
+      { val: email,     id: 'email-input' },
+      { val: raw,       id: 'phone-input' },
+      { val: meetLink,  id: 'meet-input' },
+    ];
+
+    let hasError = false;
+    fields.forEach(f => {
+      const wrapper = document.getElementById(f.id).closest('.input-wrapper');
+      if (!f.val) {
+        wrapper.style.borderColor = '#ff4d4d';
+        setTimeout(() => wrapper.style.borderColor = '', 1800);
+        hasError = true;
+      }
+    });
+
+    if (hasError) return;
 
     let url = `Signature.html?phone=${encodeURIComponent(raw)}`;
     if (meetLink) url += `&meet=${encodeURIComponent(meetLink)}`;
