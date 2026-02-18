@@ -6,16 +6,9 @@
 <title>Signature</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-  @font-face { font-family: 'Gilroy'; src: url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Light.woff2') format('woff2'), url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Light.woff') format('woff'); font-weight: 300; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'Gilroy'; src: url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Regular.woff2') format('woff2'), url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Regular.woff') format('woff'); font-weight: 400; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'Gilroy'; src: url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Medium.woff2') format('woff2'), url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Medium.woff') format('woff'); font-weight: 500; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'Gilroy'; src: url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-SemiBold.woff2') format('woff2'), url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-SemiBold.woff') format('woff'); font-weight: 600; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'Gilroy'; src: url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Bold.woff2') format('woff2'), url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Bold.woff') format('woff'); font-weight: 700; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'Gilroy'; src: url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-ExtraBold.woff2') format('woff2'), url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-ExtraBold.woff') format('woff'); font-weight: 800; font-style: normal; font-display: swap; }
-  @font-face { font-family: 'Gilroy'; src: url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Heavy.woff2') format('woff2'), url('https://raw.githubusercontent.com/1Parasite/ImageMS/refs/heads/main/assets/fonts/Gilroy-Heavy.woff') format('woff'); font-weight: 900; font-style: normal; font-display: swap; }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background-color: #F9F9F9; font-family: 'Gilroy', Arial, sans-serif; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  body { background-color: #F9F9F9; font-family: 'Calibri', Arial, sans-serif; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
 
   .page-topbar { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 750px; }
   .page-topbar img { height: 36px; width: auto; }
@@ -23,7 +16,7 @@
   .page-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #8788FF; width: 100%; max-width: 750px; }
 
   .action-row { display: flex; gap: 12px; width: 100%; max-width: 750px; }
-  .btn { flex: 1; height: 44px; border: none; border-radius: 10px; font-family: 'Gilroy', Arial, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+  .btn { flex: 1; height: 44px; border: none; border-radius: 10px; font-family: 'Calibri', Arial, sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; justify-content: center; text-decoration: none; }
   .btn-primary { background: #0C144E; color: #fff; }
   .btn-primary:hover { background: #1a2d6b; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(12,20,78,.22); }
   .btn-secondary { background: #fff; color: #8788FF; border: 2px solid #C5C6FF; }
@@ -48,7 +41,7 @@
 <div class="page-label">Preview — Email Signature</div>
 
 <div id="signature-wrapper">
-<table cellpadding="0" cellspacing="0" border="0" width="750" style="width:750px;background-color:#FFFFFF;border-collapse:collapse;font-family:'Gilroy',Arial,sans-serif;">
+<table cellpadding="0" cellspacing="0" border="0" width="750" style="width:750px;background-color:#FFFFFF;border-collapse:collapse;font-family:'Calibri',Arial,sans-serif;">
   <tr>
     <td style="padding:14px 28px 10px 28px;">
       <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
@@ -59,13 +52,13 @@
           </td>
 
           <td valign="top" style="padding:0 12px;">
-            <div style="font-family:'Gilroy',Arial,sans-serif;font-weight:700;font-size:26px;color:#0C144E;line-height:1.15;margin-bottom:2px;letter-spacing:-0.5px;">
+            <div style="font-family:'Calibri',Arial,sans-serif;font-weight:700;font-size:26px;color:#0C144E;line-height:1.15;margin-bottom:2px;letter-spacing:-0.5px;">
               <span id="sig-name">Name</span> <span id="sig-surname" style="font-weight:900;">SURNAME</span>
             </div>
-            <div id="sig-function" style="font-family:'Gilroy',Arial,sans-serif;font-weight:300;font-size:14px;color:#8788FF;line-height:1.4;margin-bottom:6px;">Function</div>
+            <div id="sig-function" style="font-family:'Calibri',Arial,sans-serif;font-weight:300;font-size:14px;color:#8788FF;line-height:1.4;margin-bottom:6px;">Function</div>
 
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
-              <tr><td style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;"><p id="sig-email">name.surname@mssolutions-group.com</p></td></tr>
+              <tr><td style="font-family:'Calibri',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;"><p id="sig-email">name.surname@mssolutions-group.com</p></td></tr>
             </table>
 
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
@@ -73,7 +66,7 @@
                 <td width="22" valign="middle" style="padding-right:7px;">
                   <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-03.png" alt="" width="20" height="20" style="display:block;">
                 </td>
-                <td valign="middle" style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
+                <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
                   <a id="phone-link" href="#" style="color:#0C144E;text-decoration:none;border-bottom:none;">+216 00 000 000</a>
                 </td>
               </tr>
@@ -91,7 +84,7 @@
                     <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-06.png" alt="YouTube" width="20" height="20" style="display:block;">
                   </a>
                 </td>
-                <td valign="middle" style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
+                <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
                   <p style="color:#0C144E;text-decoration:none;">MS Solutions Group</p>
                 </td>
               </tr>
@@ -102,7 +95,7 @@
                 <td width="22" valign="middle" style="padding-right:7px;">
                   <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png" alt="" width="20" height="20" style="display:block;">
                 </td>
-                <td valign="middle" style="font-family:'Gilroy',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
+                <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:12px;color:#0C144E;line-height:1.4;">
                   <a id="booking-link" href="#" target="_blank" style="color:#0C144E;text-decoration:none;border-bottom:none;">Booking a meeting with me</a>
                 </td>
               </tr>
@@ -127,7 +120,7 @@
                 <td width="20" height="20" valign="bottom" align="right" style="padding:1px 0 0 0;line-height:0;font-size:0;"><img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png" width="20" height="20" style="display:block;"></td>
               </tr>
             </table>
-            <div style="font-family:'Gilroy',Arial,sans-serif;font-size:10px;color:#8788FF;text-align:center;margin-top:6px;">Save to mobile</div>
+            <div style="font-family:'Calibri',Arial,sans-serif;font-size:10px;color:#8788FF;text-align:center;margin-top:6px;">Save to mobile</div>
           </td>
 
         </tr>
@@ -143,7 +136,7 @@
 
   <tr>
     <td style="padding:6px 28px 7px 28px;background-color:#FFFFFF;">
-      <p style="font-family:'Gilroy',Arial,sans-serif;font-style:italic;font-size:8px;color:#0C144E;line-height:1.45;margin:0;">Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.</p>
+      <p style="font-family:'Calibri',Arial,sans-serif;font-style:italic;font-size:8px;color:#0C144E;line-height:1.45;margin:0;">Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.</p>
     </td>
   </tr>
 </table>
