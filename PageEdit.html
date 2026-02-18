@@ -302,15 +302,26 @@
 
 <script>
   let debounceTimer;
+  let qrGenerated = false;
 
-  ['phone-input','name-input','surname-input','email-input','function-input','linkedin-input'].forEach(id => {
-    document.getElementById(id).addEventListener('input', () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(tryGenerateQR, 700);
-    });
+  // Regular fields: refresh QR after 1s idle
+  ['name-input','surname-input','email-input','function-input'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => scheduleQR(1000));
+  });
+  // Phone: slightly faster since it's the trigger
+  document.getElementById('phone-input').addEventListener('input', () => scheduleQR(800));
+  // LinkedIn: only refresh if QR already exists — avoids blank flash on first long URL paste
+  document.getElementById('linkedin-input').addEventListener('input', () => {
+    if (qrGenerated) scheduleQR(1200);
+    else scheduleQR(1000);
   });
 
   document.addEventListener('keydown', e => { if (e.key === 'Enter') goToSignature(); });
+
+  function scheduleQR(delay) {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(tryGenerateQR, delay);
+  }
 
   function tryGenerateQR() {
     const phone = document.getElementById('phone-input').value.replace(/\D/g,'');
@@ -329,18 +340,36 @@
     return `${base}contact.html?${params.toString()}`;
   }
 
+  // Off-screen scratch pad — render there first, then swap atomically so visible QR never blanks
+  const _qrScratch = document.createElement('div');
+  _qrScratch.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:160px;height:160px;';
+  document.body.appendChild(_qrScratch);
+
   function generateQR() {
-    const output = document.getElementById('qr-output');
-    output.innerHTML = '';
-    new QRCode(output, {
-      text: getContactURL(),
+    const url = getContactURL();
+    _qrScratch.innerHTML = '';
+    new QRCode(_qrScratch, {
+      text: url,
       width: 160, height: 160,
       colorDark: '#0C144E', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
-    output.classList.remove('qr-ready');
-    void output.offsetWidth;
-    output.classList.add('qr-ready');
+    // Give QRCode lib time to finish drawing, then swap in one frame
+    setTimeout(() => {
+      const canvas = _qrScratch.querySelector('canvas');
+      if (!canvas) return;
+      const img = document.createElement('img');
+      img.src = canvas.toDataURL('image/png');
+      img.width = 160; img.height = 160;
+      img.style.cssText = 'border-radius:4px;display:block;';
+      const output = document.getElementById('qr-output');
+      output.innerHTML = '';
+      output.appendChild(img);
+      output.classList.remove('qr-ready');
+      void output.offsetWidth;
+      output.classList.add('qr-ready');
+      qrGenerated = true;
+    }, 150);
   }
 
   function validate() {
