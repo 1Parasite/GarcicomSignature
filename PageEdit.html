@@ -73,7 +73,7 @@
     document.getElementById('cc-flag').textContent = country.f;
     document.getElementById('cc-code').textContent = '+' + country.d;
     closeCCDropdown();
-   
+    // Retrigger QR if already generated
     scheduleQR(400);
   }
 
@@ -97,20 +97,20 @@
     buildCCList(document.getElementById('cc-search').value);
   }
 
- 
+  // Close dropdown when clicking outside
   document.addEventListener('click', e => {
     if (!document.getElementById('cc-picker').contains(e.target)) {
       closeCCDropdown();
     }
   });
 
-
+  // Init list
   buildCCList('');
 
 
-  
-  let qrMode = 'auto';       
-  let customQRDataURL = null; 
+  // ── QR Mode: auto vs custom ──────────────────────────────────
+  let qrMode = 'auto';       // 'auto' | 'custom'
+  let customQRDataURL = null; // base64 of uploaded image
 
   function setQRMode(mode) {
     qrMode = mode;
@@ -131,7 +131,7 @@
       preview.style.display = 'block';
       const zone = document.getElementById('qr-upload-zone');
       zone.classList.add('has-image');
-      
+      // hide the upload icon/text
       zone.querySelector('svg').style.display = 'none';
       zone.querySelector('p').style.display = 'none';
     };
@@ -151,9 +151,9 @@
     document.getElementById('custom-qr-input').value = '';
   }
 
-
+  // Patch goToSignature to pass custom QR data URL if in custom mode
   const _origGoToSignature = goToSignature;
- 
+  // Override goToSignature to handle custom QR
   function goToSignature() {
     if (!validate()) return;
     const phone    = getFullPhone();
@@ -168,7 +168,7 @@
     if (meetLink) params.set('meet', meetLink);
 
     if (qrMode === 'custom' && customQRDataURL) {
-      
+      // Store in sessionStorage so signature.html can pick it up
       sessionStorage.setItem('customQR', customQRDataURL);
       params.set('customqr', '1');
     } else {
@@ -311,7 +311,7 @@
   .dual-row { display: flex; gap: 10px; }
   .dual-row .input-wrapper { flex: 1; }
 
-
+  /* QR */
   .qr-section { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 8px 0 24px; }
   .qr-frame { position: relative; padding: 18px; background: var(--purple-bg); border-radius: 16px; }
   .qr-frame::before { content:''; position:absolute; top:6px; left:6px; width:22px; height:22px; border:3px solid var(--purple); border-right:none; border-bottom:none; border-radius:4px 0 0 0; }
@@ -325,7 +325,7 @@
   .save-label { font-size:0.78rem; color:var(--text-dim); letter-spacing:0.03em; font-weight:600; }
   .qr-note { font-size:0.71rem; color:var(--text-dim); text-align:center; line-height:1.6; max-width:280px; }
 
-
+  /* Button */
   .btn-row { display: flex; gap: 12px; }
   .btn {
     flex:1; height:48px; border:none; border-radius:12px;
@@ -351,7 +351,7 @@
   @keyframes qrPop { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
   .qr-ready { animation:qrPop 0.25s cubic-bezier(.34,1.56,.64,1) both; }
 
-
+  /* Country code dropdown */
   #cc-list::-webkit-scrollbar { width: 4px; }
   #cc-list::-webkit-scrollbar-track { background: transparent; }
   #cc-list::-webkit-scrollbar-thumb { background: var(--purple-c5); border-radius: 4px; }
@@ -367,7 +367,7 @@
   .cc-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cc-dial { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-dim); flex-shrink: 0; }
 
- 
+  /* QR mode toggle */
   .qr-mode-toggle {
     display: flex;
     background: var(--purple-bg);
@@ -398,7 +398,7 @@
     color: var(--navy);
     box-shadow: 0 2px 8px rgba(12,20,78,0.10);
   }
-  
+  /* Upload zone */
   .qr-upload-zone {
     width: 196px;
     height: 196px;
@@ -450,7 +450,6 @@
          onerror="this.src='https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png'" />
   </a>
 </div>
-
 
 <div class="card">
   <p class="card-title">Signature Editor</p>
@@ -529,7 +528,6 @@
       </div>
       <input type="tel" id="phone-input" placeholder="00 000 000" maxlength="15" inputmode="numeric" autocomplete="off" />
     </div>
-    <p class="hint">The QR code will link directly to a WhatsApp chat with your full number.</p>
     <span class="error-msg">Please enter your phone number.</span>
   </div>
 
@@ -539,7 +537,7 @@
   <div class="field" id="field-linkedin">
     <label>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#0C144E" style="flex-shrink:0;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      LinkedIn Profile <span class="req-star">*</span>
+      LinkedIn Profile <span class="opt-tag">Optional</span>
     </label>
     <div class="input-wrapper url-input" id="wrap-linkedin">
       <span class="input-prefix">linkedin.com</span>
@@ -551,14 +549,14 @@
 
   <div class="divider"></div>
 
-  <!-- Google Meet -->
+  <!-- Google Meet (optional) -->
   <div class="field">
     <label>Google Meet / Booking Link <span class="opt-tag">Optional</span></label>
     <div class="input-wrapper url-input" id="wrap-meet">
       <span class="input-prefix">🔗</span>
       <input type="url" id="meet-input" placeholder="https://meet.google.com/xxx-xxxx-xxx" autocomplete="off" spellcheck="false" />
     </div>
-    <p class="hint">Linked to "Booking a meeting with me" in the signature.</p>
+    <p class="hint">Optional link to book a meeting with you (Calendly, HubSpot, Google Meet…)</p>
   </div>
 
   <!-- QR Preview -->
@@ -628,13 +626,13 @@
   let debounceTimer;
   let qrGenerated = false;
 
-  
+  // Regular fields: refresh QR after 1s idle
   ['name-input','surname-input','email-input','function-input'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => scheduleQR(1000));
   });
-  
+  // Phone: slightly faster since it's the trigger
   document.getElementById('phone-input').addEventListener('input', () => scheduleQR(800));
-  
+  // LinkedIn: only refresh if QR already exists — avoids blank flash on first long URL paste
   document.getElementById('linkedin-input').addEventListener('input', () => {
     if (qrGenerated) scheduleQR(1200);
     else scheduleQR(1000);
@@ -670,7 +668,7 @@
     return `${base}contact.html?${params.toString()}`;
   }
 
-
+  // Off-screen scratch pad — render there first, then swap atomically so visible QR never blanks
   const _qrScratch = document.createElement('div');
   _qrScratch.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:160px;height:160px;';
   document.body.appendChild(_qrScratch);
@@ -684,7 +682,7 @@
       colorDark: '#0C144E', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
-    
+    // Give QRCode lib time to finish drawing, then swap in one frame
     setTimeout(() => {
       const canvas = _qrScratch.querySelector('canvas');
       if (!canvas) return;
@@ -707,7 +705,7 @@
     const surname  = document.getElementById('surname-input').value.trim();
     const func     = document.getElementById('function-input').value.trim();
     const email    = document.getElementById('email-input').value.trim();
-    const phone    = document.getElementById('phone-input').value.replace(/\D/g,''); 
+    const phone    = document.getElementById('phone-input').value.replace(/\D/g,''); // local digits
     const linkedin = document.getElementById('linkedin-input').value.trim();
 
     const checks = [
@@ -715,7 +713,6 @@
       { ok: !!func,                        wrapIds:['wrap-func'],                fieldId:'field-func' },
       { ok: email && email.includes('@'),  wrapIds:['wrap-email'],               fieldId:'field-email' },
       { ok: phone.length >= 7,             wrapIds:['wrap-phone'],               fieldId:'field-phone' },
-      { ok: !!linkedin,                    wrapIds:['wrap-linkedin'],            fieldId:'field-linkedin' },
     ];
 
     let valid = true;
@@ -754,7 +751,7 @@
     window.location.href = `signature.html?${params.toString()}`;
   }
 
- 
+  // ── Country Code Data ─────────────────────────────────────────
   const COUNTRIES = [
     {f:'🇩🇿',n:'Algeria',d:'213'},
     {f:'🇦🇺',n:'Australia',d:'61'},
@@ -821,7 +818,7 @@
     document.getElementById('cc-flag').textContent = country.f;
     document.getElementById('cc-code').textContent = '+' + country.d;
     closeCCDropdown();
-
+    // Retrigger QR if already generated
     scheduleQR(400);
   }
 
@@ -845,16 +842,20 @@
     buildCCList(document.getElementById('cc-search').value);
   }
 
+  // Close dropdown when clicking outside
   document.addEventListener('click', e => {
     if (!document.getElementById('cc-picker').contains(e.target)) {
       closeCCDropdown();
     }
   });
 
+  // Init list
   buildCCList('');
 
 
-  let qrMode = 'auto';       
+  // ── QR Mode: auto vs custom ──────────────────────────────────
+  let qrMode = 'auto';       // 'auto' | 'custom'
+  let customQRDataURL = null; // base64 of uploaded image
 
   function setQRMode(mode) {
     qrMode = mode;
@@ -875,7 +876,7 @@
       preview.style.display = 'block';
       const zone = document.getElementById('qr-upload-zone');
       zone.classList.add('has-image');
-    
+      // hide the upload icon/text
       zone.querySelector('svg').style.display = 'none';
       zone.querySelector('p').style.display = 'none';
     };
@@ -895,8 +896,9 @@
     document.getElementById('custom-qr-input').value = '';
   }
 
-    const _origGoToSignature = goToSignature;
-  
+  // Patch goToSignature to pass custom QR data URL if in custom mode
+  const _origGoToSignature = goToSignature;
+  // Override goToSignature to handle custom QR
   function goToSignature() {
     if (!validate()) return;
     const phone    = getFullPhone();
@@ -911,7 +913,7 @@
     if (meetLink) params.set('meet', meetLink);
 
     if (qrMode === 'custom' && customQRDataURL) {
-     
+      // Store in sessionStorage so signature.html can pick it up
       sessionStorage.setItem('customQR', customQRDataURL);
       params.set('customqr', '1');
     } else {

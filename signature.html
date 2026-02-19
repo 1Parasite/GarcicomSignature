@@ -198,10 +198,9 @@
     document.getElementById('sig-phone').textContent = formatPhone(rawPhone);
   }
 
-  // LinkedIn personal profile
-  if (linkedin) {
-    document.getElementById('linkedin-link').href = linkedin;
-  }
+  // LinkedIn icon in signature always points to MS Solutions company page
+  // Personal LinkedIn URL is used only in the contact page (via QR)
+  document.getElementById('linkedin-link').href = 'https://www.linkedin.com/company/mss-group-sparking-trusted-payment/';
 
   // Booking / meet link
   if (meetLink) {
