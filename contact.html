@@ -28,31 +28,57 @@
     padding: 0 0 60px;
   }
 
+  /* Hero header */
   .hero {
     width: 100%;
-    background: linear-gradient(140deg, var(--navy) 0%, #1e2d7d 60%, #3a3fbf 100%);
-    padding: 48px 24px 72px;
+    background:
+      radial-gradient(ellipse at 80% 0%, rgba(135,136,255,0.28) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 90%, rgba(58,63,191,0.35) 0%, transparent 55%),
+      linear-gradient(155deg, #07103b 0%, #0e1a5e 40%, #1a2580 70%, #2a2fa0 100%);
+    padding: 52px 24px 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     overflow: hidden;
   }
+  /* Glowing orb top-right */
   .hero::before {
     content: '';
     position: absolute;
-    top: -60px; right: -60px;
-    width: 260px; height: 260px;
+    top: -80px; right: -80px;
+    width: 340px; height: 340px;
     border-radius: 50%;
-    background: rgba(135,136,255,0.12);
+    background: radial-gradient(circle, rgba(135,136,255,0.22) 0%, transparent 70%);
+    filter: blur(24px);
   }
+  /* Glowing orb bottom-left */
   .hero::after {
     content: '';
     position: absolute;
-    bottom: -40px; left: -40px;
-    width: 180px; height: 180px;
+    bottom: -60px; left: -60px;
+    width: 260px; height: 260px;
     border-radius: 50%;
-    background: rgba(135,136,255,0.08);
+    background: radial-gradient(circle, rgba(80,100,255,0.20) 0%, transparent 70%);
+    filter: blur(20px);
+  }
+  /* Subtle grid overlay */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(135,136,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(135,136,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  /* Bottom fade into page bg */
+  .hero-fade {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--grey));
+    pointer-events: none;
   }
 
   .ms-logo {
@@ -101,6 +127,7 @@
     z-index: 1;
   }
 
+  /* Card that overlaps hero */
   .card-area {
     width: 100%;
     max-width: 440px;
@@ -113,6 +140,7 @@
     gap: 14px;
   }
 
+  /* Contact item cards */
   .contact-card {
     background: var(--white);
     border-radius: 16px;
@@ -175,11 +203,13 @@
     flex-shrink: 0;
   }
 
+  /* Color variants */
   .icon-email   { background: #EEF2FF; }
   .icon-phone   { background: #EDFAF3; }
   .icon-whatsapp{ background: #E7FAF0; }
   .icon-linkedin{ background: #EBF5FB; }
 
+  /* Section label */
   .section-label {
     font-size: 0.68rem;
     font-weight: 700;
@@ -190,6 +220,7 @@
     margin-top: 6px;
   }
 
+  /* MS brand footer */
   .brand-footer {
     margin-top: 28px;
     width: 100%;
@@ -228,15 +259,24 @@
 </head>
 <body>
 
+<!-- Hero -->
 <div class="hero">
-  <img class="ms-logo"
-    src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png"
-    alt="MS Solutions">
+
+  <a href="https://www.mssolutions-group.com" target="_blank" style="text-decoration:none;">
+    <img class="ms-logo"
+      src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png"
+      alt="MS Solutions"
+      style="display:block; border:0;">
+  </a>
+
   <div class="avatar" id="avatar-initials">?</div>
   <div class="hero-name" id="hero-name">Name SURNAME</div>
   <div class="hero-title" id="hero-title">Function</div>
+
 </div>
 
+
+<!-- Contact cards -->
 <div class="card-area">
 
   <div class="section-label">Contact Details</div>
@@ -294,10 +334,18 @@
 
 <div class="brand-footer">
   <div class="brand-card">
-    <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png" alt="MS Solutions">
-    <p><strong>MS Solutions Group</strong>End-to-end Payment · Global Standards</p>
+
+    <a href="https://www.mssolutions-group.com" target="_blank" style="text-decoration:none;">
+      <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png"
+           alt="MS Solutions"
+           style="display:block; border:0;">
+    </a>
+
+    <p><strong>MS Solutions Group</strong> End-to-end Payment · Global Standards</p>
+
   </div>
 </div>
+
 
 <script>
   const params  = new URLSearchParams(window.location.search);
@@ -308,34 +356,34 @@
   const linkedin = params.get('linkedin')|| '';
 
   function formatPhone(n) {
-    if (n.length === 8) return `+216 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}`;
-    if (n.length === 9) return `+216 ${n.slice(0,2)} ${n.slice(2,5)} ${n.slice(5)}`;
-    return '+216 ' + n;
+    return '+' + n;
   }
 
+  // Hero
   const initials = (name.charAt(0) + surname.charAt(0)).toUpperCase();
   document.getElementById('avatar-initials').textContent = initials;
   document.getElementById('hero-name').textContent  = `${name} ${surname.toUpperCase()}`;
   document.getElementById('hero-title').textContent = func;
 
+  // Email — set via textContent so no proxy can obfuscate it
   if (email) {
     document.getElementById('val-email').textContent = email;
     document.getElementById('card-email').href = 'mailto:' + email;
   }
 
-  // WhatsApp
+  // WhatsApp — rawPhone is full international number (e.g. 21625944681)
   var rawPhone = (params.get('phone') || '').replace(/\D/g,'');
   if (rawPhone) {
-    var formatted = formatPhone(rawPhone);
+    var formatted = '+' + rawPhone;
     document.getElementById('val-whatsapp').textContent = formatted;
-    document.getElementById('card-whatsapp').href       = 'https://wa.me/216' + rawPhone;
+    document.getElementById('card-whatsapp').href       = 'https://wa.me/' + rawPhone;
   }
 
   // LinkedIn
   if (linkedin) {
     document.getElementById('card-linkedin').style.display = 'flex';
     document.getElementById('card-linkedin').href = linkedin;
-    
+    // show clean handle
     try {
       const url = new URL(linkedin);
       const parts = url.pathname.replace(/\/+$/, '').split('/');

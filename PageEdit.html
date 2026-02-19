@@ -5,7 +5,180 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PageEdit</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+  // ── Country Code Data ─────────────────────────────────────────
+  const COUNTRIES = [
+    {f:'🇩🇿',n:'Algeria',d:'213'},
+    {f:'🇦🇺',n:'Australia',d:'61'},
+    {f:'🇦🇹',n:'Austria',d:'43'},
+    {f:'🇧🇪',n:'Belgium',d:'32'},
+    {f:'🇧🇷',n:'Brazil',d:'55'},
+    {f:'🇨🇲',n:'Cameroon',d:'237'},
+    {f:'🇨🇦',n:'Canada',d:'1'},
+    {f:'🇨🇳',n:'China',d:'86'},
+    {f:'🇩🇰',n:'Denmark',d:'45'},
+    {f:'🇪🇬',n:'Egypt',d:'20'},
+    {f:'🇫🇷',n:'France',d:'33'},
+    {f:'🇩🇪',n:'Germany',d:'49'},
+    {f:'🇬🇭',n:'Ghana',d:'233'},
+    {f:'🇮🇳',n:'India',d:'91'},
+    {f:'🇮🇹',n:'Italy',d:'39'},
+    {f:'🇯🇵',n:'Japan',d:'81'},
+    {f:'🇰🇪',n:'Kenya',d:'254'},
+    {f:'🇰🇼',n:'Kuwait',d:'965'},
+    {f:'🇱🇾',n:'Libya',d:'218'},
+    {f:'🇲🇽',n:'Mexico',d:'52'},
+    {f:'🇲🇦',n:'Morocco',d:'212'},
+    {f:'🇳🇱',n:'Netherlands',d:'31'},
+    {f:'🇳🇿',n:'New Zealand',d:'64'},
+    {f:'🇳🇬',n:'Nigeria',d:'234'},
+    {f:'🇳🇴',n:'Norway',d:'47'},
+    {f:'🇵🇱',n:'Poland',d:'48'},
+    {f:'🇵🇹',n:'Portugal',d:'351'},
+    {f:'🇶🇦',n:'Qatar',d:'974'},
+    {f:'🇷🇺',n:'Russia',d:'7'},
+    {f:'🇸🇦',n:'Saudi Arabia',d:'966'},
+    {f:'🇸🇳',n:'Senegal',d:'221'},
+    {f:'🇿🇦',n:'South Africa',d:'27'},
+    {f:'🇰🇷',n:'South Korea',d:'82'},
+    {f:'🇪🇸',n:'Spain',d:'34'},
+    {f:'🇸🇪',n:'Sweden',d:'46'},
+    {f:'🇨🇭',n:'Switzerland',d:'41'},
+    {f:'🇹🇳',n:'Tunisia',d:'216'},
+    {f:'🇹🇷',n:'Turkey',d:'90'},
+    {f:'🇦🇪',n:'UAE',d:'971'},
+    {f:'🇬🇧',n:'United Kingdom',d:'44'},
+    {f:'🇺🇸',n:'United States',d:'1'}
+  ];
+
+  let selectedCC = COUNTRIES[0];
+
+  function buildCCList(filter) {
+    const list = document.getElementById('cc-list');
+    list.innerHTML = '';
+    const filtered = filter
+      ? COUNTRIES.filter(c => c.n.toLowerCase().includes(filter.toLowerCase()) || c.d.includes(filter))
+      : COUNTRIES;
+    filtered.forEach(country => {
+      const div = document.createElement('div');
+      div.className = 'cc-option' + (country.d === selectedCC.d && country.n === selectedCC.n ? ' selected' : '');
+      div.innerHTML = `<span class="cc-flag">${country.f}</span><span class="cc-name">${country.n}</span><span class="cc-dial">+${country.d}</span>`;
+      div.onclick = () => selectCC(country);
+      list.appendChild(div);
+    });
+  }
+
+  function selectCC(country) {
+    selectedCC = country;
+    document.getElementById('cc-flag').textContent = country.f;
+    document.getElementById('cc-code').textContent = '+' + country.d;
+    closeCCDropdown();
+   
+    scheduleQR(400);
+  }
+
+  function toggleCCDropdown() {
+    const dd = document.getElementById('cc-dropdown');
+    if (dd.style.display === 'none' || !dd.style.display) {
+      dd.style.display = 'block';
+      buildCCList('');
+      document.getElementById('cc-search').focus();
+    } else {
+      closeCCDropdown();
+    }
+  }
+
+  function closeCCDropdown() {
+    document.getElementById('cc-dropdown').style.display = 'none';
+    document.getElementById('cc-search').value = '';
+  }
+
+  function filterCC() {
+    buildCCList(document.getElementById('cc-search').value);
+  }
+
+ 
+  document.addEventListener('click', e => {
+    if (!document.getElementById('cc-picker').contains(e.target)) {
+      closeCCDropdown();
+    }
+  });
+
+
+  buildCCList('');
+
+
+  
+  let qrMode = 'auto';       
+  let customQRDataURL = null; 
+
+  function setQRMode(mode) {
+    qrMode = mode;
+    document.getElementById('btn-mode-auto').classList.toggle('active', mode === 'auto');
+    document.getElementById('btn-mode-custom').classList.toggle('active', mode === 'custom');
+    document.getElementById('qr-auto-panel').style.display   = mode === 'auto'   ? 'flex'     : 'none';
+    document.getElementById('qr-custom-panel').style.display = mode === 'custom' ? 'flex'     : 'none';
+  }
+
+  function loadCustomQR(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      customQRDataURL = e.target.result;
+      const preview = document.getElementById('custom-qr-preview');
+      preview.src = customQRDataURL;
+      preview.style.display = 'block';
+      const zone = document.getElementById('qr-upload-zone');
+      zone.classList.add('has-image');
+      
+      zone.querySelector('svg').style.display = 'none';
+      zone.querySelector('p').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeCustomQR(e) {
+    e.stopPropagation();
+    customQRDataURL = null;
+    const preview = document.getElementById('custom-qr-preview');
+    preview.src = '';
+    preview.style.display = 'none';
+    const zone = document.getElementById('qr-upload-zone');
+    zone.classList.remove('has-image');
+    zone.querySelector('svg').style.display = '';
+    zone.querySelector('p').style.display = '';
+    document.getElementById('custom-qr-input').value = '';
+  }
+
+
+  const _origGoToSignature = goToSignature;
+ 
+  function goToSignature() {
+    if (!validate()) return;
+    const phone    = getFullPhone();
+    const meetLink = document.getElementById('meet-input').value.trim();
+    const name     = document.getElementById('name-input').value.trim();
+    const surname  = document.getElementById('surname-input').value.trim();
+    const func     = document.getElementById('function-input').value.trim();
+    const email    = document.getElementById('email-input').value.trim();
+    const linkedin = document.getElementById('linkedin-input').value.trim();
+
+    const params = new URLSearchParams({ phone, name, surname, func, email, linkedin });
+    if (meetLink) params.set('meet', meetLink);
+
+    if (qrMode === 'custom' && customQRDataURL) {
+      
+      sessionStorage.setItem('customQR', customQRDataURL);
+      params.set('customqr', '1');
+    } else {
+      sessionStorage.removeItem('customQR');
+    }
+
+    window.location.href = 'signature.html?' + params.toString();
+  }
+
+</script>
 <style>
   :root {
     --navy: #0C144E;
@@ -84,6 +257,10 @@
     transition: border-color 0.2s, box-shadow 0.2s;
     background: var(--grey);
   }
+  #wrap-phone {
+    overflow: visible;
+    position: relative;
+  }
   .input-wrapper:focus-within {
     border-color: var(--purple);
     background: var(--white);
@@ -134,6 +311,7 @@
   .dual-row { display: flex; gap: 10px; }
   .dual-row .input-wrapper { flex: 1; }
 
+
   .qr-section { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 8px 0 24px; }
   .qr-frame { position: relative; padding: 18px; background: var(--purple-bg); border-radius: 16px; }
   .qr-frame::before { content:''; position:absolute; top:6px; left:6px; width:22px; height:22px; border:3px solid var(--purple); border-right:none; border-bottom:none; border-radius:4px 0 0 0; }
@@ -146,6 +324,7 @@
   .qr-placeholder p { font-size:0.72rem; text-align:center; font-weight:400; opacity:0.7; line-height:1.5; }
   .save-label { font-size:0.78rem; color:var(--text-dim); letter-spacing:0.03em; font-weight:600; }
   .qr-note { font-size:0.71rem; color:var(--text-dim); text-align:center; line-height:1.6; max-width:280px; }
+
 
   .btn-row { display: flex; gap: 12px; }
   .btn {
@@ -171,6 +350,93 @@
   .footer-band { animation-delay:0.16s; }
   @keyframes qrPop { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
   .qr-ready { animation:qrPop 0.25s cubic-bezier(.34,1.56,.64,1) both; }
+
+
+  #cc-list::-webkit-scrollbar { width: 4px; }
+  #cc-list::-webkit-scrollbar-track { background: transparent; }
+  #cc-list::-webkit-scrollbar-thumb { background: var(--purple-c5); border-radius: 4px; }
+  .cc-option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; border-radius: 8px; cursor: pointer;
+    font-family: 'Sora', sans-serif; font-size: 0.8rem; color: var(--navy);
+    transition: background 0.12s;
+  }
+  .cc-option:hover { background: var(--purple-bg); }
+  .cc-option.selected { background: var(--purple-bg); font-weight: 600; }
+  .cc-flag { font-size: 1.1rem; flex-shrink: 0; }
+  .cc-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cc-dial { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-dim); flex-shrink: 0; }
+
+ 
+  .qr-mode-toggle {
+    display: flex;
+    background: var(--purple-bg);
+    border-radius: 10px;
+    padding: 4px;
+    gap: 4px;
+    margin-bottom: 16px;
+    align-self: stretch;
+  }
+  .qr-mode-btn {
+    flex: 1;
+    height: 36px;
+    border: none;
+    border-radius: 7px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.73rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    color: var(--text-dim);
+    background: transparent;
+    letter-spacing: 0;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .qr-mode-btn.active {
+    background: var(--white);
+    color: var(--navy);
+    box-shadow: 0 2px 8px rgba(12,20,78,0.10);
+  }
+  
+  .qr-upload-zone {
+    width: 196px;
+    height: 196px;
+    border: 2px dashed var(--purple-c5);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.18s;
+    background: var(--grey);
+    position: relative;
+    overflow: hidden;
+  }
+  .qr-upload-zone:hover { border-color: var(--purple); background: var(--purple-bg); }
+  .qr-upload-zone.has-image { border-style: solid; border-color: var(--purple-c5); padding: 0; }
+  .qr-upload-zone img#custom-qr-preview {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    border-radius: 14px;
+    display: block;
+  }
+  .qr-upload-zone p { font-size: 0.72rem; color: var(--text-dim); text-align: center; line-height: 1.5; font-weight: 400; }
+  .qr-upload-zone svg { opacity: 0.5; }
+  .upload-remove-btn {
+    position: absolute; top: 6px; right: 6px;
+    width: 22px; height: 22px;
+    background: rgba(12,20,78,0.65);
+    border: none; border-radius: 50%;
+    color: #fff; font-size: 13px; line-height: 1;
+    cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+  .qr-upload-zone.has-image .upload-remove-btn { display: flex; }
+  #custom-qr-input { display: none; }
 </style>
 </head>
 <body>
@@ -226,11 +492,39 @@
   <!-- Phone -->
   <div class="field" id="field-phone">
     <label>Phone / WhatsApp <span class="req-star">*</span></label>
-    <div class="input-wrapper" id="wrap-phone">
-      <span class="input-prefix">+216</span>
-      <input type="tel" id="phone-input" placeholder="00 000 000" maxlength="12" inputmode="numeric" autocomplete="off" />
+    <div class="input-wrapper" id="wrap-phone" style="overflow:visible;position:relative;">
+      <!-- Country code picker -->
+      <div id="cc-picker" style="position:relative;flex-shrink:0;">
+        <button type="button" id="cc-btn" onclick="toggleCCDropdown()" style="
+          height:48px;padding:0 10px 0 12px;background:var(--purple-bg);
+          border:none;border-right:2px solid var(--purple-c5);
+          font-family:'DM Mono',monospace;font-size:0.82rem;color:var(--text-dim);
+          cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;
+          outline:none;min-width:80px;max-width:100px;border-radius:10px 0 0 10px;">
+          <span id="cc-flag">🇹🇳</span>
+          <span id="cc-code">+216</span>
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:0.5;flex-shrink:0;">
+            <path d="M1 1l4 4 4-4" stroke="#787AEA" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <!-- Dropdown -->
+        <div id="cc-dropdown" style="
+          display:none;position:absolute;top:52px;left:0;z-index:999;
+          background:#fff;border:2px solid var(--purple-c5);border-radius:12px;
+          box-shadow:0 8px 32px rgba(12,20,78,0.14);width:260px;overflow:hidden;">
+          <div style="padding:8px;">
+            <input type="text" id="cc-search" placeholder="Search country..." onkeyup="filterCC()" style="
+              width:100%;height:36px;border:2px solid var(--purple-c5);border-radius:8px;
+              padding:0 10px;font-family:'Sora',sans-serif;font-size:0.78rem;
+              color:var(--navy);outline:none;background:var(--grey);">
+          </div>
+          <div id="cc-list" style="max-height:200px;overflow-y:auto;padding:0 4px 6px;">
+          </div>
+        </div>
+      </div>
+      <input type="tel" id="phone-input" placeholder="00 000 000" maxlength="15" inputmode="numeric" autocomplete="off" />
     </div>
-    <p class="hint">The QR code will open a personal contact page with all your details.</p>
+    <p class="hint">The QR code will link directly to a WhatsApp chat with your full number.</p>
     <span class="error-msg">Please enter your phone number.</span>
   </div>
 
@@ -264,29 +558,56 @@
 
   <!-- QR Preview -->
   <div class="qr-section">
-    <div class="qr-frame">
-      <span class="corner-bl"></span>
-      <span class="corner-br"></span>
-      <div id="qr-output">
-        <div class="qr-placeholder">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="4" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
-            <rect x="8" y="8" width="8" height="8" rx="1" fill="#7b7fd4"/>
-            <rect x="28" y="4" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
-            <rect x="32" y="8" width="8" height="8" rx="1" fill="#7b7fd4"/>
-            <rect x="4" y="28" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
-            <rect x="8" y="32" width="8" height="8" rx="1" fill="#7b7fd4"/>
-            <rect x="28" y="28" width="5" height="5" rx="1" fill="#7b7fd4"/>
-            <rect x="36" y="28" width="8" height="5" rx="1" fill="#7b7fd4"/>
-            <rect x="28" y="36" width="8" height="8" rx="1" fill="#7b7fd4"/>
-            <rect x="40" y="36" width="4" height="8" rx="1" fill="#7b7fd4"/>
-          </svg>
-          <p>Fill in your details<br>to preview QR</p>
+
+    <!-- Mode toggle -->
+    <div class="qr-mode-toggle">
+      <button class="qr-mode-btn active" id="btn-mode-auto" onclick="setQRMode('auto')">⚡ Auto</button>
+      <button class="qr-mode-btn" id="btn-mode-custom" onclick="setQRMode('custom')">📁 Upload my QR</button>
+    </div>
+
+    <!-- Auto-generated QR -->
+    <div id="qr-auto-panel" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+      <div class="qr-frame">
+        <span class="corner-bl"></span>
+        <span class="corner-br"></span>
+        <div id="qr-output">
+          <div class="qr-placeholder">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
+              <rect x="8" y="8" width="8" height="8" rx="1" fill="#7b7fd4"/>
+              <rect x="28" y="4" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
+              <rect x="32" y="8" width="8" height="8" rx="1" fill="#7b7fd4"/>
+              <rect x="4" y="28" width="16" height="16" rx="2" stroke="#7b7fd4" stroke-width="2.5"/>
+              <rect x="8" y="32" width="8" height="8" rx="1" fill="#7b7fd4"/>
+              <rect x="28" y="28" width="5" height="5" rx="1" fill="#7b7fd4"/>
+              <rect x="36" y="28" width="8" height="5" rx="1" fill="#7b7fd4"/>
+              <rect x="28" y="36" width="8" height="8" rx="1" fill="#7b7fd4"/>
+              <rect x="40" y="36" width="4" height="8" rx="1" fill="#7b7fd4"/>
+            </svg>
+            <p>Fill in your details<br>to preview QR</p>
+          </div>
         </div>
       </div>
+      <span class="save-label" style="margin-top:6px;">Scans to your contact page</span>
+      <p class="qr-note">When scanned, opens a personal "Reach Out" page with your name, title, email, phone &amp; LinkedIn.</p>
     </div>
-    <span class="save-label">Scans to your contact page</span>
-    <p class="qr-note">When scanned, opens a personal "Reach Out" page with your name, title, email, phone &amp; LinkedIn.</p>
+
+    <!-- Custom QR upload -->
+    <div id="qr-custom-panel" style="display:none;flex-direction:column;align-items:center;gap:10px;">
+      <div class="qr-upload-zone" id="qr-upload-zone" onclick="document.getElementById('custom-qr-input').click()">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#8788FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <p>Click to upload<br>your QR image</p>
+        <img id="custom-qr-preview" src="" alt="" style="display:none;">
+        <button class="upload-remove-btn" id="remove-custom-qr" onclick="removeCustomQR(event)">✕</button>
+      </div>
+      <input type="file" id="custom-qr-input" accept="image/*" onchange="loadCustomQR(event)">
+      <p class="qr-note">Upload a PNG or JPG of your own QR code. It will be embedded in your signature.</p>
+    </div>
+
   </div>
 
   <div class="btn-row">
@@ -302,10 +623,13 @@
   let debounceTimer;
   let qrGenerated = false;
 
+  
   ['name-input','surname-input','email-input','function-input'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => scheduleQR(1000));
   });
+  
   document.getElementById('phone-input').addEventListener('input', () => scheduleQR(800));
+  
   document.getElementById('linkedin-input').addEventListener('input', () => {
     if (qrGenerated) scheduleQR(1200);
     else scheduleQR(1000);
@@ -323,8 +647,14 @@
     if (phone.length >= 7) generateQR();
   }
 
+  function getFullPhone() {
+    const cc    = document.getElementById('cc-code').textContent.replace('+','');
+    const local = document.getElementById('phone-input').value.replace(/\D/g,'');
+    return cc + local;
+  }
+
   function getContactURL() {
-    const phone    = document.getElementById('phone-input').value.replace(/\D/g,'');
+    const phone    = getFullPhone();
     const name     = document.getElementById('name-input').value.trim();
     const surname  = document.getElementById('surname-input').value.trim();
     const func     = document.getElementById('function-input').value.trim();
@@ -334,6 +664,7 @@
     const base     = window.location.href.split('?')[0].replace(/PageEdit\.html$/i, '');
     return `${base}contact.html?${params.toString()}`;
   }
+
 
   const _qrScratch = document.createElement('div');
   _qrScratch.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:160px;height:160px;';
@@ -348,6 +679,7 @@
       colorDark: '#0C144E', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
+    
     setTimeout(() => {
       const canvas = _qrScratch.querySelector('canvas');
       if (!canvas) return;
@@ -370,7 +702,7 @@
     const surname  = document.getElementById('surname-input').value.trim();
     const func     = document.getElementById('function-input').value.trim();
     const email    = document.getElementById('email-input').value.trim();
-    const phone    = document.getElementById('phone-input').value.replace(/\D/g,'');
+    const phone    = document.getElementById('phone-input').value.replace(/\D/g,''); 
     const linkedin = document.getElementById('linkedin-input').value.trim();
 
     const checks = [
@@ -404,7 +736,7 @@
 
   function goToSignature() {
     if (!validate()) return;
-    const phone    = document.getElementById('phone-input').value.replace(/\D/g,'');
+    const phone    = document.getElementById('phone-input').value.replace(/\D/g,''); // local digits
     const meetLink = document.getElementById('meet-input').value.trim();
     const name     = document.getElementById('name-input').value.trim();
     const surname  = document.getElementById('surname-input').value.trim();
@@ -416,6 +748,174 @@
     if (meetLink) params.set('meet', meetLink);
     window.location.href = `signature.html?${params.toString()}`;
   }
+
+ 
+  const COUNTRIES = [
+    {f:'🇩🇿',n:'Algeria',d:'213'},
+    {f:'🇦🇺',n:'Australia',d:'61'},
+    {f:'🇦🇹',n:'Austria',d:'43'},
+    {f:'🇧🇪',n:'Belgium',d:'32'},
+    {f:'🇧🇷',n:'Brazil',d:'55'},
+    {f:'🇨🇲',n:'Cameroon',d:'237'},
+    {f:'🇨🇦',n:'Canada',d:'1'},
+    {f:'🇨🇳',n:'China',d:'86'},
+    {f:'🇩🇰',n:'Denmark',d:'45'},
+    {f:'🇪🇬',n:'Egypt',d:'20'},
+    {f:'🇫🇷',n:'France',d:'33'},
+    {f:'🇩🇪',n:'Germany',d:'49'},
+    {f:'🇬🇭',n:'Ghana',d:'233'},
+    {f:'🇮🇳',n:'India',d:'91'},
+    {f:'🇮🇹',n:'Italy',d:'39'},
+    {f:'🇯🇵',n:'Japan',d:'81'},
+    {f:'🇰🇪',n:'Kenya',d:'254'},
+    {f:'🇰🇼',n:'Kuwait',d:'965'},
+    {f:'🇱🇾',n:'Libya',d:'218'},
+    {f:'🇲🇽',n:'Mexico',d:'52'},
+    {f:'🇲🇦',n:'Morocco',d:'212'},
+    {f:'🇳🇱',n:'Netherlands',d:'31'},
+    {f:'🇳🇿',n:'New Zealand',d:'64'},
+    {f:'🇳🇬',n:'Nigeria',d:'234'},
+    {f:'🇳🇴',n:'Norway',d:'47'},
+    {f:'🇵🇱',n:'Poland',d:'48'},
+    {f:'🇵🇹',n:'Portugal',d:'351'},
+    {f:'🇶🇦',n:'Qatar',d:'974'},
+    {f:'🇷🇺',n:'Russia',d:'7'},
+    {f:'🇸🇦',n:'Saudi Arabia',d:'966'},
+    {f:'🇸🇳',n:'Senegal',d:'221'},
+    {f:'🇿🇦',n:'South Africa',d:'27'},
+    {f:'🇰🇷',n:'South Korea',d:'82'},
+    {f:'🇪🇸',n:'Spain',d:'34'},
+    {f:'🇸🇪',n:'Sweden',d:'46'},
+    {f:'🇨🇭',n:'Switzerland',d:'41'},
+    {f:'🇹🇳',n:'Tunisia',d:'216'},
+    {f:'🇹🇷',n:'Turkey',d:'90'},
+    {f:'🇦🇪',n:'UAE',d:'971'},
+    {f:'🇬🇧',n:'United Kingdom',d:'44'},
+    {f:'🇺🇸',n:'United States',d:'1'}
+  ];
+
+  let selectedCC = COUNTRIES[0];
+
+  function buildCCList(filter) {
+    const list = document.getElementById('cc-list');
+    list.innerHTML = '';
+    const filtered = filter
+      ? COUNTRIES.filter(c => c.n.toLowerCase().includes(filter.toLowerCase()) || c.d.includes(filter))
+      : COUNTRIES;
+    filtered.forEach(country => {
+      const div = document.createElement('div');
+      div.className = 'cc-option' + (country.d === selectedCC.d && country.n === selectedCC.n ? ' selected' : '');
+      div.innerHTML = `<span class="cc-flag">${country.f}</span><span class="cc-name">${country.n}</span><span class="cc-dial">+${country.d}</span>`;
+      div.onclick = () => selectCC(country);
+      list.appendChild(div);
+    });
+  }
+
+  function selectCC(country) {
+    selectedCC = country;
+    document.getElementById('cc-flag').textContent = country.f;
+    document.getElementById('cc-code').textContent = '+' + country.d;
+    closeCCDropdown();
+
+    scheduleQR(400);
+  }
+
+  function toggleCCDropdown() {
+    const dd = document.getElementById('cc-dropdown');
+    if (dd.style.display === 'none' || !dd.style.display) {
+      dd.style.display = 'block';
+      buildCCList('');
+      document.getElementById('cc-search').focus();
+    } else {
+      closeCCDropdown();
+    }
+  }
+
+  function closeCCDropdown() {
+    document.getElementById('cc-dropdown').style.display = 'none';
+    document.getElementById('cc-search').value = '';
+  }
+
+  function filterCC() {
+    buildCCList(document.getElementById('cc-search').value);
+  }
+
+  document.addEventListener('click', e => {
+    if (!document.getElementById('cc-picker').contains(e.target)) {
+      closeCCDropdown();
+    }
+  });
+
+  buildCCList('');
+
+
+  let qrMode = 'auto';       
+
+  function setQRMode(mode) {
+    qrMode = mode;
+    document.getElementById('btn-mode-auto').classList.toggle('active', mode === 'auto');
+    document.getElementById('btn-mode-custom').classList.toggle('active', mode === 'custom');
+    document.getElementById('qr-auto-panel').style.display   = mode === 'auto'   ? 'flex'     : 'none';
+    document.getElementById('qr-custom-panel').style.display = mode === 'custom' ? 'flex'     : 'none';
+  }
+
+  function loadCustomQR(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      customQRDataURL = e.target.result;
+      const preview = document.getElementById('custom-qr-preview');
+      preview.src = customQRDataURL;
+      preview.style.display = 'block';
+      const zone = document.getElementById('qr-upload-zone');
+      zone.classList.add('has-image');
+    
+      zone.querySelector('svg').style.display = 'none';
+      zone.querySelector('p').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function removeCustomQR(e) {
+    e.stopPropagation();
+    customQRDataURL = null;
+    const preview = document.getElementById('custom-qr-preview');
+    preview.src = '';
+    preview.style.display = 'none';
+    const zone = document.getElementById('qr-upload-zone');
+    zone.classList.remove('has-image');
+    zone.querySelector('svg').style.display = '';
+    zone.querySelector('p').style.display = '';
+    document.getElementById('custom-qr-input').value = '';
+  }
+
+    const _origGoToSignature = goToSignature;
+  
+  function goToSignature() {
+    if (!validate()) return;
+    const phone    = getFullPhone();
+    const meetLink = document.getElementById('meet-input').value.trim();
+    const name     = document.getElementById('name-input').value.trim();
+    const surname  = document.getElementById('surname-input').value.trim();
+    const func     = document.getElementById('function-input').value.trim();
+    const email    = document.getElementById('email-input').value.trim();
+    const linkedin = document.getElementById('linkedin-input').value.trim();
+
+    const params = new URLSearchParams({ phone, name, surname, func, email, linkedin });
+    if (meetLink) params.set('meet', meetLink);
+
+    if (qrMode === 'custom' && customQRDataURL) {
+     
+      sessionStorage.setItem('customQR', customQRDataURL);
+      params.set('customqr', '1');
+    } else {
+      sessionStorage.removeItem('customQR');
+    }
+
+    window.location.href = 'signature.html?' + params.toString();
+  }
+
 </script>
 </body>
 </html>
