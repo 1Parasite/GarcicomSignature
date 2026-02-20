@@ -252,10 +252,10 @@
     </td>
   </tr>
 
-  <!-- CONFIDENTIALITY ROW -->
+  <!-- CONFIDENTIALITY ROW — FIX: font-size and line-height locked on the <td> itself -->
   <tr>
-    <td colspan="3" style="padding:5px 20px 7px 20px;background-color:#ffffff;">
-      <p style="margin:0;padding:0;font-family:Calibri,Arial,sans-serif;font-style:italic;font-size:9px;color:#888899;line-height:1.4;mso-line-height-rule:exactly;">
+    <td colspan="3" style="padding:5px 20px 7px 20px;background-color:#ffffff;font-size:9px;line-height:1.4;mso-line-height-rule:exactly;">
+      <p style="margin:0;padding:0;font-family:Calibri,Arial,sans-serif;font-style:italic;font-size:9px;color:#888899;line-height:1.4;mso-line-height-rule:exactly;max-height:none;overflow:visible;">
         Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.
       </p>
     </td>
@@ -305,7 +305,12 @@
   var customQRData = useCustomQR ? sessionStorage.getItem('customQR') : null;
 
   if (customQRData) {
-    document.getElementById('qr-img').src = customQRData;
+    // FIX: explicitly enforce dimensions via style when using a custom QR image
+    var qrImg = document.getElementById('qr-img');
+    qrImg.src = customQRData;
+    qrImg.setAttribute('width', '110');
+    qrImg.setAttribute('height', '110');
+    qrImg.style.cssText = 'display:block;width:110px;height:110px;border:0;outline:0;margin:0 auto;';
   } else {
     var contactParams = new URLSearchParams({
       phone: rawPhone, name: name, surname: surname,
