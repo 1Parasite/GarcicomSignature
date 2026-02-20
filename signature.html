@@ -3,164 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Signature</title>
+<title>Signature – MS Solutions</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background-color: #F9F9F9; font-family: 'Calibri', Arial, sans-serif; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-  .page-topbar { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 750px; }
+  body {
+    background-color: #F5F5FF;
+    font-family: Calibri, Arial, sans-serif;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-height: 100vh;
+  }
+  .page-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; max-width: 680px;
+  }
   .page-topbar img { height: 36px; width: auto; }
-  .page-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #8788FF; width: 100%; max-width: 750px; }
-  .action-row { display: flex; gap: 12px; width: 100%; max-width: 750px; }
-  .btn { flex: 1; height: 44px; border: none; border-radius: 10px; font-family: 'Calibri', Arial, sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+  .page-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #8788FF;
+    width: 100%; max-width: 680px;
+  }
+  .action-row { display: flex; gap: 10px; width: 100%; max-width: 680px; }
+  .btn {
+    flex: 1; height: 42px; border: none; border-radius: 8px;
+    font-family: Calibri, Arial, sans-serif; font-size: 14px;
+    font-weight: 700; cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; letter-spacing: 0.02em;
+  }
   .btn-primary { background: #0C144E; color: #fff; }
-  .btn-primary:hover { background: #1a2d6b; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(12,20,78,.22); }
+  .btn-primary:hover { background: #1a2d6b; box-shadow: 0 4px 14px rgba(12,20,78,.3); }
   .btn-secondary { background: #fff; color: #8788FF; border: 2px solid #C5C6FF; }
-  .btn-secondary:hover { background: #ECECFF; transform: translateY(-1px); }
-  #qr-gen { display: none; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-  .page-topbar, .page-label, #signature-wrapper, .action-row { animation: fadeUp 0.4s ease both; }
-  .page-topbar       { animation-delay: 0s; }
-  .page-label        { animation-delay: 0.05s; }
-  #signature-wrapper { animation-delay: 0.1s; }
-  .action-row        { animation-delay: 0.15s; }
+  .btn-secondary:hover { background: #F0F0FF; }
+  #qr-gen { position: absolute; left: -9999px; top: -9999px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page-topbar       { animation: fadeUp 0.35s ease both 0s; }
+  .page-label        { animation: fadeUp 0.35s ease both 0.06s; }
+  #signature-wrapper { animation: fadeUp 0.35s ease both 0.12s; }
+  .action-row        { animation: fadeUp 0.35s ease both 0.18s; }
 </style>
 </head>
 <body>
 
 <div class="page-topbar">
   <a href="https://www.mssolutions-group.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png" 
-         alt="MS Solutions">
+    <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png" alt="MS Solutions">
   </a>
 </div>
-
 
 <div class="page-label">Preview — Email Signature</div>
 
 <div id="signature-wrapper">
-<table cellpadding="0" cellspacing="0" border="0" width="750" style="width:750px;background-color:#FFFFFF;border-collapse:collapse;font-family:'Calibri',Arial,sans-serif;">
+
+<!--[if mso]>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;">
+<tr><td>
+<![endif]-->
+
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"
+  width="600"
+  style="width:600px;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#ffffff;">
+
+  <!-- ── MAIN ROW ── -->
   <tr>
-    <td style="padding:14px 28px 10px 28px;">
-      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+
+    <!-- LOGO CELL -->
+    <td width="160" valign="middle"
+      style="width:160px;padding:18px 14px 18px 16px;vertical-align:middle;">
+      <a href="https://www.mssolutions-group.com" target="_blank" style="text-decoration:none;border:0;display:block;">
+        <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png"
+             alt="MS Solutions"
+             width="155" height="auto"
+             style="display:block;width:155px;height:auto;border:0;outline:0;text-decoration:none;mso-line-height-rule:exactly;">
+      </a>
+    </td>
+
+    <!-- INFO CELL — centered vertically between logo and QR -->
+    <td valign="middle"
+      style="padding:18px 10px;vertical-align:middle;">
+
+      <!-- Name line -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+        style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:0 0 4px 0;">
         <tr>
-
-          <!-- Logo -->
-          <td width="200" valign="middle" style="padding-right:16px;padding-bottom:8px;">
-            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-01.png" alt="MS Solutions" width="190" style="display:block;width:190px;height:auto;">
+          <td style="font-family:Calibri,Arial,sans-serif;font-size:20px;font-weight:700;color:#0C144E;line-height:1.2;mso-line-height-rule:exactly;padding:0;white-space:nowrap;">
+            <span id="sig-name" style="font-weight:700;color:#0C144E;font-family:Calibri,Arial,sans-serif;font-size:20px;">Name</span>&nbsp;<span id="sig-surname" style="font-weight:900;color:#0C144E;font-family:Calibri,Arial,sans-serif;font-size:20px;letter-spacing:0.3px;">SURNAME</span>
           </td>
-
-          <!-- Info -->
-          <td valign="top" style="padding:0 12px 0 36px;">
-
-            <!-- Name -->
-            <div style="font-family:'Calibri',Arial,sans-serif;font-weight:700;font-size:30px;color:#0C144E;line-height:1.15;margin-bottom:2px;letter-spacing:-0.5px;">
-              <span id="sig-name">Name</span> <span id="sig-surname" style="font-weight:900;">SURNAME</span>
-            </div>
-
-            <!-- Function -->
-            <div id="sig-function" style="font-family:'Calibri',Arial,sans-serif;font-weight:300;font-size:18px;color:#8788FF;line-height:1.4;margin-bottom:6px;">Function</div>
-
-            <!-- Email row — built entirely by JS, no email text in HTML so Cloudflare cannot touch it -->
-            <div id="sig-email-row" style="margin-bottom:4px;font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;"></div>
-
-            <!-- Phone -->
-            <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
-              <tr>
-                <td width="22" valign="middle" style="padding-right:7px;">
-                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-03.png" alt="" width="20" height="20" style="display:block;">
-                </td>
-                <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;">
-                  <span id="sig-phone" style="color:#0C144E;font-family:'Calibri',Arial,sans-serif;font-size:16px;">+216 00 000 000</span>
-                </td>
-              </tr>
-            </table>
-
-            <!-- LinkedIn + YouTube -->
-            <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
-              <tr>
-                <td width="22" valign="middle" style="padding-right:7px;">
-                  <a id="linkedin-link" href="https://www.linkedin.com/company/mss-group-sparking-trusted-payment/" target="_blank" style="text-decoration:none;">
-                    <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-05.png" alt="LinkedIn" width="20" height="20" style="display:block;">
-                  </a>
-                </td>
-                <td width="22" valign="middle" style="padding-right:7px;">
-                  <a href="https://www.youtube.com/channel/UCCVqglSGQvGJK5i_UdbApzA" target="_blank" style="text-decoration:none;">
-                    <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-06.png" alt="YouTube" width="20" height="20" style="display:block;">
-                  </a>
-                </td>
-                <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;">
-                  <span style="color:#0C144E;">MS Solutions Group</span>
-                </td>
-              </tr>
-            </table>
-
-            <!-- Booking -->
-            <table cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td width="22" valign="middle" style="padding-right:7px;">
-                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png" alt="" width="20" height="20" style="display:block;">
-                </td>
-                <td valign="middle" style="font-family:'Calibri',Arial,sans-serif;font-size:16px;color:#0C144E;line-height:1.4;">
-                  <span id="booking-link" style="color:#0C144E;text-decoration:none;">Booking a meeting with me</span>
-                </td>
-              </tr>
-            </table>
-
-          </td>
-
-          <!-- QR code -->
-          <td width="140" valign="middle" align="center" style="padding-left:8px;">
-            <table cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;border-collapse:collapse;">
-              <tr>
-                <td width="20" height="20" valign="top" align="left" style="padding:0 0 1px 0;line-height:0;font-size:0;">
-                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png" width="20" height="20" style="display:block;">
-                </td>
-                <td width="120" style="padding:0;line-height:0;font-size:0;"></td>
-                <td width="20" height="20" valign="top" align="right" style="padding:0 0 1px 0;line-height:0;font-size:0;">
-                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png" width="20" height="20" style="display:block;">
-                </td>
-              </tr>
-              <tr>
-                <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;">
-                  <img id="qr-img" src="" alt="QR Code" width="120" height="120" style="display:block;width:120px;height:120px;border-radius:3px;">
-                </td>
-              </tr>
-              <tr>
-                <td width="20" height="20" valign="bottom" align="left" style="padding:1px 0 0 0;line-height:0;font-size:0;">
-                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png" width="20" height="20" style="display:block;">
-                </td>
-                <td style="padding:0;line-height:0;font-size:0;"></td>
-                <td width="20" height="20" valign="bottom" align="right" style="padding:1px 0 0 0;line-height:0;font-size:0;">
-                  <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png" width="20" height="20" style="display:block;">
-                </td>
-              </tr>
-            </table>
-            <div style="font-family:'Calibri',Arial,sans-serif;font-size:10px;color:#8788FF;text-align:center;margin-top:6px;">Reach out to me</div>
-          </td>
-
         </tr>
       </table>
+
+      <!-- Function -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+        style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:0 0 12px 0;">
+        <tr>
+          <td style="padding:0;">
+            <p id="sig-function"
+              style="margin:0;padding:0;font-family:Calibri,Arial,sans-serif;font-size:13px;font-weight:400;color:#8788FF;line-height:1.3;mso-line-height-rule:exactly;">
+              Function
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Email row -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+        style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:0 0 8px 0;">
+        <tr>
+          <td valign="middle" style="vertical-align:middle;">
+            <a id="sig-email-link" href="#"
+              style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;line-height:1.3;mso-line-height-rule:exactly;text-decoration:none;display:inline;">
+              <span id="sig-email"></span>
+            </a>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Phone row -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+        style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:0 0 8px 0;">
+        <tr>
+          <td width="24" valign="middle"
+            style="width:24px;padding:0 8px 0 0;vertical-align:middle;font-size:0;line-height:0;">
+            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-03.png"
+                 alt="" width="18" height="18"
+                 style="display:block;width:18px;height:18px;border:0;outline:0;">
+          </td>
+          <td valign="middle" style="vertical-align:middle;">
+            <span id="sig-phone"
+              style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;line-height:1.3;mso-line-height-rule:exactly;">
+              +216 00 000 000
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Social row: LinkedIn + YouTube -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+        style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;margin:0 0 8px 0;">
+        <tr>
+          <td width="24" valign="middle"
+            style="width:24px;padding:0 6px 0 0;vertical-align:middle;font-size:0;line-height:0;">
+            <a id="linkedin-link" href="https://www.linkedin.com/company/mss-group-sparking-trusted-payment/" target="_blank"
+              style="text-decoration:none;border:0;display:block;">
+              <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-05.png"
+                   alt="LinkedIn" width="18" height="18"
+                   style="display:block;width:18px;height:18px;border:0;outline:0;">
+            </a>
+          </td>
+          <td width="24" valign="middle"
+            style="width:24px;padding:0 12px 0 0;vertical-align:middle;font-size:0;line-height:0;">
+            <a href="https://www.youtube.com/channel/UCCVqglSGQvGJK5i_UdbApzA" target="_blank"
+              style="text-decoration:none;border:0;display:block;">
+              <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-06.png"
+                   alt="YouTube" width="18" height="18"
+                   style="display:block;width:18px;height:18px;border:0;outline:0;">
+            </a>
+          </td>
+          <td valign="middle" style="vertical-align:middle;">
+            <span style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;line-height:1.3;mso-line-height-rule:exactly;">
+              MS Solutions Group
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Booking row -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+        style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+        <tr>
+          <td width="24" valign="middle"
+            style="width:24px;padding:0 8px 0 0;vertical-align:middle;font-size:0;line-height:0;">
+            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png"
+                 alt="" width="18" height="18"
+                 style="display:block;width:18px;height:18px;border:0;outline:0;">
+          </td>
+          <td valign="middle" style="vertical-align:middle;">
+            <span id="booking-link"
+              style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;line-height:1.3;mso-line-height-rule:exactly;text-decoration:none;display:inline;">
+              Book a meeting with me
+            </span>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+
+    <!-- QR CELL — equal padding to logo side -->
+    <td width="130" valign="middle" align="center"
+      style="width:130px;padding:18px 16px 18px 10px;vertical-align:middle;text-align:center;">
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"
+        style="border-collapse:collapse;margin:0 auto;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+        <!-- Top corners -->
+        <tr>
+          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png"
+                 width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          </td>
+          <td width="110" height="18" style="width:110px;height:18px;padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
+          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png"
+                 width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          </td>
+        </tr>
+        <!-- QR image -->
+        <tr>
+          <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;text-align:center;">
+            <img id="qr-img" src="" alt="QR Code" width="110" height="110"
+                 style="display:block;width:110px;height:110px;border:0;outline:0;margin:0 auto;">
+          </td>
+        </tr>
+        <!-- Bottom corners -->
+        <tr>
+          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png"
+                 width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          </td>
+          <td style="padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
+          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png"
+                 width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:6px 0 0 0;padding:0;font-family:Calibri,Arial,sans-serif;font-size:11px;color:#8788FF;text-align:center;line-height:1.3;mso-line-height-rule:exactly;letter-spacing:0.4px;">
+        Reach out to me
+      </p>
+
+    </td>
+
+  </tr>
+
+  <!-- BANNER ROW -->
+  <tr>
+    <td colspan="3" style="padding:0;line-height:0;font-size:0;mso-line-height-rule:exactly;">
+      <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/bannner.png"
+           alt="" width="600" height="auto"
+           style="display:block;width:600px;height:auto;border:0;outline:0;text-decoration:none;">
     </td>
   </tr>
 
-  <!-- Banner -->
+  <!-- CONFIDENTIALITY ROW -->
   <tr>
-    <td style="padding:0;">
-      <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/bannner.png" alt="" width="750" style="display:block;width:750px;height:auto;border:0;outline:none;text-decoration:none;">
+    <td colspan="3" style="padding:5px 20px 7px 20px;background-color:#ffffff;">
+      <p style="margin:0;padding:0;font-family:Calibri,Arial,sans-serif;font-style:italic;font-size:9px;color:#888899;line-height:1.4;mso-line-height-rule:exactly;">
+        Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.
+      </p>
     </td>
   </tr>
 
-  <!-- Confidentiality -->
-  <tr>
-    <td style="padding:6px 28px 7px 28px;background-color:#FFFFFF;">
-      <p style="font-family:'Calibri',Arial,sans-serif;font-style:italic;font-size:8px;color:#0C144E;line-height:1.45;margin:0;">Confidentiality notice: this e-mail and its attachments are confidential and intended solely for the addressed recipient(s). If you are not the intended recipient, please do not disclose, copy, distribute, or rely on its contents.</p>
-    </td>
-  </tr>
 </table>
+
 </div>
 
-<div id="qr-gen" style="display:none;"></div>
+<div id="qr-gen"></div>
 
 <div class="action-row">
   <button onclick="window.location.href='PageEdit.html'" class="btn btn-secondary">← Edit</button>
@@ -168,111 +273,116 @@
 </div>
 
 <script>
-  const params   = new URLSearchParams(window.location.search);
-  const rawPhone = (params.get('phone') || '').replace(/\D/g, '');
-  const meetLink = params.get('meet')    || '';
-  const name     = params.get('name')    || 'Name';
-  const surname  = params.get('surname') || 'SURNAME';
-  const func     = params.get('func')    || 'Function';
-  const email    = params.get('email')   || 'name.surname@mssolutions-group.com';
-  const linkedin = params.get('linkedin')|| '';
+(function () {
+  var params   = new URLSearchParams(window.location.search);
+  var rawPhone = (params.get('phone') || '').replace(/\D/g, '');
+  var meetLink = params.get('meet')    || '';
+  var name     = params.get('name')    || 'Name';
+  var surname  = params.get('surname') || 'SURNAME';
+  var func     = params.get('func')    || 'Function';
+  var email    = params.get('email')   || 'name.surname@mssolutions-group.com';
+  var linkedin = params.get('linkedin')|| '';
 
-  function formatPhone(n) {
-    // n is now the full international number without +
-    return '+' + n;
-  }
-
-  // Name & function
   document.getElementById('sig-name').textContent     = name;
   document.getElementById('sig-surname').textContent  = surname.toUpperCase();
   document.getElementById('sig-function').textContent = func;
 
-  // Email — injected entirely by JS as a plain text node, no email string ever in HTML
-  // This prevents Cloudflare (and any proxy) from ever finding and obfuscating it
-  var emailRow = document.getElementById('sig-email-row');
-  var emailText = document.createTextNode(email);
-  emailRow.appendChild(emailText);
+  document.getElementById('sig-email').textContent    = email;
+  document.getElementById('sig-email-link').href      = 'mailto:' + email;
 
-  // Phone — rawPhone is full international number (e.g. 21625944681)
   if (rawPhone) {
-    document.getElementById('sig-phone').textContent = formatPhone(rawPhone);
+    document.getElementById('sig-phone').textContent = '+' + rawPhone;
   }
-
-  // LinkedIn icon in signature always points to MS Solutions company page
-  // Personal LinkedIn URL is used only in the contact page (via QR)
-  document.getElementById('linkedin-link').href = 'https://www.linkedin.com/company/mss-group-sparking-trusted-payment/';
-
-  // Booking / meet link
+  if (linkedin) {
+    document.getElementById('linkedin-link').href = linkedin;
+  }
   if (meetLink) {
     document.getElementById('booking-link').href = meetLink;
   }
 
-  // QR — custom upload or auto-generated
-  var useCustomQR = params.get('customqr') === '1';
+  // ── QR generation ──────────────────────────────────────────────
+  var useCustomQR  = params.get('customqr') === '1';
   var customQRData = useCustomQR ? sessionStorage.getItem('customQR') : null;
 
   if (customQRData) {
-    // Use the uploaded QR image directly
     document.getElementById('qr-img').src = customQRData;
   } else {
-    // Auto-generate QR pointing to contact.html
-    var contactParams = new URLSearchParams({ phone: rawPhone, name: name, surname: surname, func: func, email: email, linkedin: linkedin });
-    var basePath = window.location.href.split('?')[0].replace(/signature\.html$/i, '');
+    var contactParams = new URLSearchParams({
+      phone: rawPhone, name: name, surname: surname,
+      func: func, email: email, linkedin: linkedin
+    });
+    var basePath   = window.location.href.split('?')[0].replace(/signature\.html$/i, '');
     var contactURL = basePath + 'contact.html?' + contactParams.toString();
 
     new QRCode(document.getElementById('qr-gen'), {
       text: contactURL,
       width: 200, height: 200,
-      colorDark: '#0C144E', colorLight: '#ffffff',
+      colorDark:  '#0C144E',
+      colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
       var canvas = document.querySelector('#qr-gen canvas');
-      if (canvas) document.getElementById('qr-img').src = canvas.toDataURL('image/png');
-    }, 250);
+      if (canvas) {
+        document.getElementById('qr-img').src = canvas.toDataURL('image/png');
+      }
+    }, 350);
   }
 
-  // ── Copy signature ──────────────────────────────────────────────
-  function copySignature() {
-    var sigHTML = document.getElementById('signature-wrapper').innerHTML;
+  window.copySignature = function () {
+    var wrapper = document.getElementById('signature-wrapper');
+    var clone   = wrapper.cloneNode(true);
+
+    var scratch = clone.querySelector('#qr-gen');
+    if (scratch) scratch.parentNode.removeChild(scratch);
+
+    var sigHTML = clone.innerHTML;
+
     if (navigator.clipboard && window.ClipboardItem) {
       var htmlBlob = new Blob([sigHTML], { type: 'text/html' });
-      var textBlob = new Blob([document.getElementById('signature-wrapper').innerText], { type: 'text/plain' });
-      navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
-        .then(function() { showFeedback(true); })
-        .catch(function() { fallbackCopy(sigHTML); });
+      var textBlob = new Blob([wrapper.innerText], { type: 'text/plain' });
+      navigator.clipboard
+        .write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
+        .then(function ()  { showFeedback(true);  })
+        .catch(function () { fallbackCopy(sigHTML); });
     } else {
       fallbackCopy(sigHTML);
     }
-  }
+  };
 
   function fallbackCopy(html) {
     var el = document.createElement('div');
     el.setAttribute('contenteditable', 'true');
-    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
+    el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;font-family:Calibri,Arial,sans-serif;';
     el.innerHTML = html;
     document.body.appendChild(el);
+
     var range = document.createRange();
     range.selectNodeContents(el);
     var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    var ok = document.execCommand('copy');
+
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+
     sel.removeAllRanges();
     document.body.removeChild(el);
     showFeedback(ok);
   }
 
-  function showFeedback(success) {
+  function showFeedback(ok) {
     var btn = document.getElementById('copy-btn');
-    btn.textContent = success ?  '✓ Copied!' : '✗ Try again';
-    btn.style.background = success ? '#1a7a3a' : '#b03030';
-    setTimeout(function() {
-      btn.textContent = '⎘ Copy Signature';
+    btn.textContent      = ok ? '✓ Copied!' : '✗ Try again';
+    btn.style.background = ok ? '#1a7a3a'  : '#b03030';
+    setTimeout(function () {
+      btn.textContent      = '⎘ Copy Signature';
       btn.style.background = '';
-    }, 2200);
+    }, 2400);
   }
+
+})();
 </script>
 </body>
 </html>
