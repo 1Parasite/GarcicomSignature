@@ -211,7 +211,45 @@
     <p class="hint">Optional link to book a meeting (Calendly, HubSpot, Google Meet&#8230;)</p>
   </div>
 
-  <!-- QR  -->
+  <div class="divider"></div>
+
+  <!-- Banner Link -->
+  <div class="field">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C144E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      Banner Link <span class="opt-tag">Optional</span>
+    </label>
+    <div style="font-size:0.72rem;color:var(--text-dim);background:var(--purple-bg);border-radius:8px;padding:8px 12px;line-height:1.5;margin-bottom:4px;">
+      <strong style="color:var(--navy);">On click, the banner will redirect to this link.</strong><br>
+      Leave empty for no redirection. Update each campaign to point to your event or landing page.
+    </div>
+    <div class="input-wrapper url-input" id="wrap-bannerlink">
+      <span class="input-prefix">&#127760;</span>
+      <input type="url" id="bannerlink-input" placeholder="https://www.mssolutions-group.com" autocomplete="off" spellcheck="false" />
+    </div>
+    <p class="hint">The banner image in your signature will become a clickable link to this URL.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Banner Image -->
+  <div class="field">
+    <label>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0C144E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Banner Image <span class="opt-tag">Optional</span>
+    </label>
+    <div style="font-size:0.72rem;color:var(--text-dim);background:var(--purple-bg);border-radius:8px;padding:8px 12px;line-height:1.5;margin-bottom:4px;">
+      <strong style="color:var(--navy);">Replace the default banner with a custom image.</strong><br>
+      Paste a direct image URL (PNG, JPG). Leave empty to keep the default MS Solutions banner.
+    </div>
+    <div class="input-wrapper url-input" id="wrap-bannerimg">
+      <span class="input-prefix">&#128444;</span>
+      <input type="url" id="bannerimg-input" placeholder="https://your-domain.com/banner.png" autocomplete="off" spellcheck="false" />
+    </div>
+    <p class="hint">Leave empty to use the default banner.</p>
+  </div>
+
+  <!-- QR Preview -->
   <div class="qr-section">
     <div class="qr-mode-toggle">
       <button class="qr-mode-btn active" id="btn-mode-auto" onclick="setQRMode('auto')">&#9889; Auto</button>
@@ -465,10 +503,14 @@
     const func       = document.getElementById('function-input').value.trim();
     const email      = document.getElementById('email-input').value.trim();
     const linkedin   = document.getElementById('linkedin-input').value.trim();
+    const bannerlink = document.getElementById('bannerlink-input').value.trim();
+    const bannerimg  = document.getElementById('bannerimg-input').value.trim();
     const params = new URLSearchParams({ name, surname, func, email });
-    if (phone)    params.set('phone',    phone);
-    if (linkedin) params.set('linkedin', linkedin);
-    if (meetLink) params.set('meet',     meetLink);
+    if (phone)      params.set('phone',      phone);
+    if (linkedin)   params.set('linkedin',   linkedin);
+    if (meetLink)   params.set('meet',       meetLink);
+    if (bannerlink) params.set('bannerlink', bannerlink);
+    if (bannerimg)  params.set('bannerimg',  bannerimg);
     if (qrMode === 'custom' && customQRDataURL) {
       sessionStorage.setItem('customQR', customQRDataURL);
       params.set('customqr', '1');
