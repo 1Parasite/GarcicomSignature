@@ -49,21 +49,20 @@
 
 <style type="text/css">
   @media only screen and (max-width: 620px) {
-    table.sig-outer    { width:100% !important; max-width:100% !important; }
-    td.sig-logo-td     { display:block !important; width:100% !important; text-align:center !important; padding:20px 16px 10px !important; }
-    td.sig-info-td     { display:block !important; width:100% !important; padding:0 16px 12px !important; }
-    td.sig-qr-td       { display:block !important; width:100% !important; text-align:center !important; padding:4px 16px 20px !important; }
-    img.sig-logo-img   { width:110px !important; height:auto !important; margin:0 auto !important; display:block !important; }
-    span.sig-name-fs   { font-size:16px !important; }
-    span.sig-sn-fs     { font-size:16px !important; }
-    table.sig-qr-inner { margin:0 auto !important; width:auto !important; }
-    img.sig-banner     { width:100% !important; height:auto !important; display:block !important; }
-    td.sig-info-td td  { white-space:normal !important; }
-    /* QR scales down on small screens */
-    img.sig-qr-img     { width:18vw !important; height:18vw !important; max-width:110px !important; max-height:110px !important; min-width:60px !important; min-height:60px !important; }
-    img.sig-qr-corner  { width:4vw !important; height:4vw !important; max-width:18px !important; max-height:18px !important; min-width:12px !important; min-height:12px !important; }
+    table.sig-outer     { width:100% !important; max-width:100% !important; }
+    td.sig-logo-td      { display:block !important; width:100% !important; text-align:center !important; padding:20px 16px 10px !important; }
+    td.sig-info-td      { display:block !important; width:100% !important; padding:0 16px 12px !important; }
+    td.sig-qr-td        { display:block !important; width:100% !important; text-align:center !important; padding:4px 16px 20px !important; }
+    img.sig-logo-img    { width:110px !important; height:auto !important; margin:0 auto !important; display:block !important; }
+    span.sig-name-fs    { font-size:16px !important; }
+    span.sig-sn-fs      { font-size:16px !important; }
+    table.sig-qr-inner  { margin:0 auto !important; width:auto !important; }
+    img.sig-banner      { width:100% !important; height:auto !important; display:block !important; }
+    td.sig-info-td td   { white-space:normal !important; }
+    img.sig-qr-img      { width:18vw !important; height:18vw !important; max-width:110px !important; max-height:110px !important; min-width:60px !important; min-height:60px !important; }
+    img.sig-qr-corner   { width:4vw !important; height:4vw !important; max-width:18px !important; max-height:18px !important; min-width:12px !important; min-height:12px !important; }
     td.sig-qr-corner-td { width:4vw !important; height:4vw !important; max-width:18px !important; min-width:12px !important; }
-    td.sig-qr-mid-td   { width:18vw !important; max-width:110px !important; min-width:60px !important; }
+    td.sig-qr-mid-td    { width:18vw !important; max-width:110px !important; min-width:60px !important; }
   }
 </style>
 
@@ -73,7 +72,7 @@
 
   <tr>
 
-    <!-- COL 1: LOGO (160px) -->
+    <!-- COL 1: LOGO -->
     <td class="sig-logo-td" width="160" valign="middle"
       style="width:160px;min-width:160px;padding:18px 14px 18px 16px;vertical-align:middle;">
       <a href="https://www.mssolutions-group.com" target="_blank" style="text-decoration:none;border:0;display:block;">
@@ -83,7 +82,7 @@
       </a>
     </td>
 
-    <!-- COL 2: INFO (~274px) -->
+    <!-- COL 2: INFO -->
     <td class="sig-info-td" valign="middle" style="padding:18px 10px;vertical-align:middle;">
 
       <!-- Name -->
@@ -96,16 +95,25 @@
 
       <!-- Email -->
       <p style="margin:0 0 7px;padding:0;line-height:1.3;mso-line-height-rule:exactly;">
-        <a id="sig-email-link" href="#" style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;text-decoration:none;">
-          <span id="sig-email"></span>
+        <a id="sig-email-link" href="mailto:name.surname@mssolutions-group.com"
+           style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;text-decoration:none;">
+          <span id="sig-email">name.surname@mssolutions-group.com</span>
         </a>
       </p>
 
-      <!-- Phone — hidden until JS reveals it (optional field) -->
-      <p id="sig-phone-row" style="margin:0 0 7px;padding:0;line-height:1.3;mso-line-height-rule:exactly;display:none;">
+      <!--
+        PHONE ROW
+        Collapsed by default using max-height:0 + overflow:hidden + font-size:0.
+        This works in ALL email clients including Outlook which ignores display:none.
+        JS expands it only when a phone number is provided.
+      -->
+      <p id="sig-phone-row"
+         style="margin:0;padding:0;max-height:0;overflow:hidden;font-size:0;line-height:0;mso-hide:all;">
         <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-03.png"
-             width="14" height="14" alt="" style="display:inline;vertical-align:middle;border:0;margin-right:6px;">
-        <span id="sig-phone" style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;"></span>
+             width="14" height="14" alt=""
+             style="display:inline;vertical-align:middle;border:0;margin-right:6px;">
+        <span id="sig-phone"
+              style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;"></span>
       </p>
 
       <!-- Social icons -->
@@ -113,36 +121,36 @@
         <a id="linkedin-link" href="https://www.linkedin.com/company/mss-group-sparking-trusted-payment/" target="_blank"
            style="text-decoration:none;border:0;display:inline-block;margin-right:4px;">
           <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-05.png"
-               alt="LinkedIn" width="18" height="18" style="display:inline-block;width:18px;height:18px;border:0;vertical-align:middle;">
+               alt="LinkedIn" width="18" height="18"
+               style="display:inline-block;width:18px;height:18px;border:0;vertical-align:middle;">
         </a>
         <a href="https://www.youtube.com/channel/UCCVqglSGQvGJK5i_UdbApzA" target="_blank"
            style="text-decoration:none;border:0;display:inline-block;margin-right:8px;">
           <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-06.png"
-               alt="YouTube" width="18" height="18" style="display:inline-block;width:18px;height:18px;border:0;vertical-align:middle;">
+               alt="YouTube" width="18" height="18"
+               style="display:inline-block;width:18px;height:18px;border:0;vertical-align:middle;">
         </a>
         <span style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;">MS Solutions Group</span>
       </p>
 
-      <!-- FIX 1: Both rows start hidden. JS will show the correct one. -->
-      <!-- Booking: real <a> when meetLink provided -->
-      <p id="sig-booking-row" style="margin:0;padding:0;line-height:1.3;mso-line-height-rule:exactly;display:none;">
+      <!--
+        BOOK A MEETING — SINGLE ROW, ALWAYS VISIBLE.
+        There is only ONE row in the HTML. It always shows.
+        If a meetLink is provided, JS replaces the inner span with a real <a>.
+        If no JS runs (email client), the plain text span stays — still correct.
+        Double rendering is physically impossible with this approach.
+      -->
+      <p style="margin:0;padding:0;line-height:1.3;mso-line-height-rule:exactly;">
         <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png"
-             width="14" height="14" alt="" style="display:inline;vertical-align:middle;border:0;margin-right:6px;">
-        <a id="sig-booking-link" href="#" target="_blank"
-           style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;text-decoration:none;">
-          Book a meeting with me
-        </a>
-      </p>
-      <!-- Booking: plain text fallback — also starts hidden, JS shows if no meetLink -->
-      <p id="sig-booking-plain" style="margin:0;padding:0;line-height:1.3;mso-line-height-rule:exactly;display:none;">
-        <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png"
-             width="14" height="14" alt="" style="display:inline;vertical-align:middle;border:0;margin-right:6px;">
-        <span style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;">Book a meeting with me</span>
+             width="14" height="14" alt=""
+             style="display:inline;vertical-align:middle;border:0;margin-right:6px;">
+        <span id="sig-booking-content"
+              style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;">Book a meeting with me</span>
       </p>
 
     </td>
 
-    <!-- COL 3: QR — proportional, scales with available space -->
+    <!-- COL 3: QR — proportional, scales with rendered column width -->
     <td class="sig-qr-td" width="166" valign="middle" align="center"
       style="width:166px;min-width:130px;padding:18px 16px 18px 10px;vertical-align:middle;text-align:center;">
 
@@ -150,28 +158,47 @@
         class="sig-qr-inner"
         style="border-collapse:collapse;margin:0 auto;mso-table-lspace:0pt;mso-table-rspace:0pt;width:auto;">
         <tr>
-          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          <td class="sig-qr-corner-td" width="18" height="18"
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner"
+                 src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png"
+                 width="18" height="18" alt=""
+                 style="display:block;border:0;width:18px;height:18px;">
           </td>
-          <td class="sig-qr-mid-td" width="110" style="width:110px;padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
-          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          <td class="sig-qr-mid-td" width="110"
+              style="width:110px;padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
+          <td class="sig-qr-corner-td" width="18" height="18"
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner"
+                 src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png"
+                 width="18" height="18" alt=""
+                 style="display:block;border:0;width:18px;height:18px;">
           </td>
         </tr>
         <tr>
           <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;">
-            <img id="qr-img" class="sig-qr-img" src="data:image/gif;base64,R0lGODlhbgBuAIAAAP///wAAACH5BAAAAAAALAAAAABuAG4AAAIChF8AOw=="
+            <img id="qr-img" class="sig-qr-img"
+                 src="data:image/gif;base64,R0lGODlhbgBuAIAAAP///wAAACH5BAAAAAAALAAAAABuAG4AAAIChF8AOw=="
                  alt="QR Code" width="110" height="110"
                  style="display:block;width:110px;height:110px;max-width:110px;max-height:110px;border:0;margin:0 auto;opacity:0.12;">
           </td>
         </tr>
         <tr>
-          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          <td class="sig-qr-corner-td" width="18" height="18"
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner"
+                 src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png"
+                 width="18" height="18" alt=""
+                 style="display:block;border:0;width:18px;height:18px;">
           </td>
-          <td class="sig-qr-mid-td" style="padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
-          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
+          <td class="sig-qr-mid-td"
+              style="padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
+          <td class="sig-qr-corner-td" width="18" height="18"
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner"
+                 src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png"
+                 width="18" height="18" alt=""
+                 style="display:block;border:0;width:18px;height:18px;">
           </td>
         </tr>
       </table>
@@ -185,7 +212,8 @@
 
   <!-- BANNER ROW -->
   <tr>
-    <td colspan="3" id="sig-banner-td" style="padding:0;line-height:0;font-size:0;mso-line-height-rule:exactly;"></td>
+    <td colspan="3" id="sig-banner-td"
+        style="padding:0;line-height:0;font-size:0;mso-line-height-rule:exactly;"></td>
   </tr>
 
   <!-- CONFIDENTIALITY NOTICE -->
@@ -205,7 +233,8 @@
 <div class="action-row">
   <button onclick="window.location.href='PageEdit.html'" class="btn btn-secondary">&#8592; Edit</button>
   <button class="btn btn-primary" id="copy-btn" onclick="copySignature()">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
       <rect x="9" y="9" width="13" height="13" rx="2"/>
       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
     </svg>
@@ -216,35 +245,42 @@
 <script>
 (function () {
 
-  /* ═══════════════════════════════════════════
+  /* ════════════════════════════
      BANNER CONFIG
-     ═══════════════════════════════════════════ */
+     ════════════════════════════ */
   var BANNER_SRC = 'https://raw.githubusercontent.com/1Parasite/GarcicomSignature/main/assets/Banner%20(1).png';
   var BANNER_ALT = '';
 
   /* ── URL params ── */
-  var params      = new URLSearchParams(window.location.search);
-  var rawPhone    = (params.get('phone')      || '').replace(/\D/g, '');
-  var meetLink    = params.get('meet')        || '';
-  var name        = params.get('name')        || 'Name';
-  var surname     = params.get('surname')     || 'SURNAME';
-  var func        = params.get('func')        || 'Function';
-  var email       = params.get('email')       || 'name.surname@mssolutions-group.com';
-  var linkedin    = params.get('linkedin')    || '';
-  var bannerLink  = params.get('bannerlink')  || '';
-  var bannerImg_  = params.get('bannerimg')   || '';
+  var params     = new URLSearchParams(window.location.search);
+  var rawPhone   = (params.get('phone')     || '').replace(/\D/g, '');
+  var meetLink   = params.get('meet')       || '';
+  var name       = params.get('name')       || 'Name';
+  var surname    = params.get('surname')    || 'SURNAME';
+  var func       = params.get('func')       || 'Function';
+  var email      = params.get('email')      || 'name.surname@mssolutions-group.com';
+  var linkedin   = params.get('linkedin')   || '';
+  var bannerLink = params.get('bannerlink') || '';
+  var bannerImg  = params.get('bannerimg')  || '';
 
-  /* ── Populate fields ── */
+  /* ── Name / function / email ── */
   document.getElementById('sig-name').textContent     = name;
   document.getElementById('sig-surname').textContent  = surname.toUpperCase();
   document.getElementById('sig-function').textContent = func;
   document.getElementById('sig-email').textContent    = email;
   document.getElementById('sig-email-link').href      = 'mailto:' + email;
 
-  /* ── Phone (optional) ── */
+  /* ── Phone ──
+     Expand the collapsed phone row only when a number exists. */
   if (rawPhone) {
-    document.getElementById('sig-phone').textContent       = '+' + rawPhone;
-    document.getElementById('sig-phone-row').style.display = 'block';
+    var phoneRow  = document.getElementById('sig-phone-row');
+    var phoneSpan = document.getElementById('sig-phone');
+    phoneSpan.textContent       = '+' + rawPhone;
+    phoneRow.style.maxHeight    = '30px';
+    phoneRow.style.overflow     = 'visible';
+    phoneRow.style.fontSize     = '13px';
+    phoneRow.style.lineHeight   = '1.3';
+    phoneRow.style.marginBottom = '7px';
   }
 
   /* ── LinkedIn ── */
@@ -252,41 +288,40 @@
     document.getElementById('linkedin-link').href = linkedin;
   }
 
-  /* ── FIX 1: Booking — mutually exclusive, both start hidden ──
-     Show the linked version if meetLink exists, plain text otherwise.
-     Only ONE row is ever visible at a time. */
+  /* ── Book a meeting ──
+     Single row always in DOM. JS upgrades plain span → real <a> if meetLink set.
+     No JS = plain text. Either way only ONE element ever renders. */
   if (meetLink) {
-    document.getElementById('sig-booking-link').href         = meetLink;
-    document.getElementById('sig-booking-row').style.display = 'block';
-    /* sig-booking-plain stays display:none */
-  } else {
-    document.getElementById('sig-booking-plain').style.display = 'block';
-    /* sig-booking-row stays display:none */
+    var bookingSpan = document.getElementById('sig-booking-content');
+    var a = document.createElement('a');
+    a.href        = meetLink;
+    a.target      = '_blank';
+    a.style.cssText = 'font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;text-decoration:none;';
+    a.textContent = 'Book a meeting with me';
+    bookingSpan.parentNode.replaceChild(a, bookingSpan);
   }
 
   /* ── Banner ── */
-  var activeSrc = bannerImg_ || BANNER_SRC;
-  var bannerImgTag = '<img src="' + activeSrc + '" class="sig-banner" alt="' + BANNER_ALT + '" width="600" height="auto"'
+  var activeSrc    = bannerImg || BANNER_SRC;
+  var bannerImgTag = '<img src="' + activeSrc + '" class="sig-banner" alt="' + BANNER_ALT + '"'
+    + ' width="600" height="auto"'
     + ' style="display:block;width:600px;height:auto;border:0;outline:0;">';
   document.getElementById('sig-banner-td').innerHTML = bannerLink
     ? '<a href="' + bannerLink + '" target="_blank" style="display:block;border:0;text-decoration:none;">' + bannerImgTag + '</a>'
     : bannerImgTag;
 
-  /* ── QR generation with silent fallback ── */
+  /* ── QR generation ── */
   var useCustomQR  = params.get('customqr') === '1';
   var customQRData = useCustomQR ? sessionStorage.getItem('customQR') : null;
 
   if (customQRData) {
-    var qi = document.getElementById('qr-img');
-    qi.src           = customQRData;
-    qi.style.opacity = '1';
+    var qiCustom           = document.getElementById('qr-img');
+    qiCustom.src           = customQRData;
+    qiCustom.style.opacity = '1';
+    setTimeout(resizeQR, 50);
   } else {
-    var cp = new URLSearchParams({
-      phone: rawPhone, name: name, surname: surname,
-      func: func, email: email, linkedin: linkedin
-    });
+    var cp   = new URLSearchParams({ phone: rawPhone, name: name, surname: surname, func: func, email: email, linkedin: linkedin });
     var base = window.location.href.split('?')[0].replace(/signature\.html$/i, '');
-
     try {
       new QRCode(document.getElementById('qr-gen'), {
         text: base + 'contact.html?' + cp.toString(),
@@ -297,60 +332,45 @@
       setTimeout(function () {
         var canvas = document.querySelector('#qr-gen canvas');
         if (canvas) {
-          var qi2 = document.getElementById('qr-img');
-          qi2.src           = canvas.toDataURL('image/png');
-          qi2.style.opacity = '1';
+          var qi           = document.getElementById('qr-img');
+          qi.src           = canvas.toDataURL('image/png');
+          qi.style.opacity = '1';
+          resizeQR();
         }
       }, 350);
-    } catch (e) {
-      console.warn('QR generation failed:', e);
-    }
+    } catch (e) { console.warn('QR generation failed:', e); }
   }
 
   /* ── Proportional QR resize ──
-     After the QR image loads, measure the actual rendered column width
-     and scale the QR + corner decorations proportionally.
-     Max 110px (desktop), min 60px (very small screens).
-     Corners stay at ~16% of QR size. */
+     Measures actual rendered column width, scales QR + corners to fit.
+     Runs on load, resize, and after QR canvas injects. */
   function resizeQR() {
-    var qrTd = document.querySelector('td.sig-qr-td');
+    var qrTd  = document.querySelector('td.sig-qr-td');
     var qrImg = document.getElementById('qr-img');
     if (!qrTd || !qrImg) return;
 
-    var colWidth = qrTd.offsetWidth;
-    /* Reserve padding (26px left + right) and a small margin */
-    var available = Math.max(60, Math.min(110, colWidth - 36));
-    var cornerSize = Math.round(available * 0.16);
-    cornerSize = Math.max(12, Math.min(18, cornerSize));
+    var available  = Math.max(60, Math.min(110, qrTd.offsetWidth - 36));
+    var cornerSize = Math.max(12, Math.min(18, Math.round(available * 0.16)));
 
-    /* Resize QR image */
     qrImg.style.width  = available + 'px';
     qrImg.style.height = available + 'px';
 
-    /* Resize corner images & their cells */
-    var corners = document.querySelectorAll('img.sig-qr-corner');
-    corners.forEach(function(c) {
-      c.style.width  = cornerSize + 'px';
-      c.style.height = cornerSize + 'px';
+    document.querySelectorAll('img.sig-qr-corner').forEach(function (c) {
+      c.style.width = c.style.height = cornerSize + 'px';
     });
-    var cornerTds = document.querySelectorAll('td.sig-qr-corner-td');
-    cornerTds.forEach(function(td) {
-      td.style.width  = cornerSize + 'px';
-      td.style.height = cornerSize + 'px';
+    document.querySelectorAll('td.sig-qr-corner-td').forEach(function (td) {
+      td.style.width = td.style.height = cornerSize + 'px';
     });
-    var midTds = document.querySelectorAll('td.sig-qr-mid-td');
-    midTds.forEach(function(td) {
+    document.querySelectorAll('td.sig-qr-mid-td').forEach(function (td) {
       td.style.width = available + 'px';
     });
   }
 
-  /* Run on load and on resize */
-  window.addEventListener('load', resizeQR);
+  window.addEventListener('load',   resizeQR);
   window.addEventListener('resize', resizeQR);
-  /* Also run after QR image is injected (slight delay for canvas→img) */
   setTimeout(resizeQR, 500);
 
-
+  /* ── Copy signature ── */
   window.copySignature = function () {
     var wrapper = document.getElementById('signature-wrapper');
     var clone   = wrapper.cloneNode(true);
@@ -385,10 +405,10 @@
   }
 
   function showFeedback(ok) {
-    var label        = document.getElementById('copy-label');
-    var btn          = document.getElementById('copy-btn');
-    label.textContent        = ok ? 'Copied!' : 'Try again';
-    btn.style.background     = ok ? '#1a7a3a' : '#b03030';
+    var label = document.getElementById('copy-label');
+    var btn   = document.getElementById('copy-btn');
+    label.textContent    = ok ? 'Copied!' : 'Try again';
+    btn.style.background = ok ? '#1a7a3a' : '#b03030';
     setTimeout(function () {
       label.textContent    = 'Copy Signature';
       btn.style.background = '';
