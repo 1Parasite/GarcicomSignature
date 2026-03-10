@@ -47,7 +47,6 @@
 
 <div id="signature-wrapper">
 
-<!-- Mobile responsiveness: stacks columns via display:block at 620px -->
 <style type="text/css">
   @media only screen and (max-width: 620px) {
     table.sig-outer    { width:100% !important; max-width:100% !important; }
@@ -57,13 +56,17 @@
     img.sig-logo-img   { width:110px !important; height:auto !important; margin:0 auto !important; display:block !important; }
     span.sig-name-fs   { font-size:16px !important; }
     span.sig-sn-fs     { font-size:16px !important; }
-    table.sig-qr-inner { margin:0 auto !important; }
+    table.sig-qr-inner { margin:0 auto !important; width:auto !important; }
     img.sig-banner     { width:100% !important; height:auto !important; display:block !important; }
     td.sig-info-td td  { white-space:normal !important; }
+    /* QR scales down on small screens */
+    img.sig-qr-img     { width:18vw !important; height:18vw !important; max-width:110px !important; max-height:110px !important; min-width:60px !important; min-height:60px !important; }
+    img.sig-qr-corner  { width:4vw !important; height:4vw !important; max-width:18px !important; max-height:18px !important; min-width:12px !important; min-height:12px !important; }
+    td.sig-qr-corner-td { width:4vw !important; height:4vw !important; max-width:18px !important; min-width:12px !important; }
+    td.sig-qr-mid-td   { width:18vw !important; max-width:110px !important; min-width:60px !important; }
   }
 </style>
 
-<!-- Outer table: 600px fixed, centered, Outlook-safe with explicit min-width on all cols -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
   class="sig-outer" width="600"
   style="width:600px;max-width:600px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#ffffff;margin:0 auto;">
@@ -80,7 +83,7 @@
       </a>
     </td>
 
-    <!-- COL 2: INFO (~294px) -->
+    <!-- COL 2: INFO (~274px) -->
     <td class="sig-info-td" valign="middle" style="padding:18px 10px;vertical-align:middle;">
 
       <!-- Name -->
@@ -120,7 +123,8 @@
         <span style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;">MS Solutions Group</span>
       </p>
 
-      <!-- Booking: real <a> when meetLink provided, plain text fallback otherwise -->
+      <!-- FIX 1: Both rows start hidden. JS will show the correct one. -->
+      <!-- Booking: real <a> when meetLink provided -->
       <p id="sig-booking-row" style="margin:0;padding:0;line-height:1.3;mso-line-height-rule:exactly;display:none;">
         <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png"
              width="14" height="14" alt="" style="display:inline;vertical-align:middle;border:0;margin-right:6px;">
@@ -129,7 +133,8 @@
           Book a meeting with me
         </a>
       </p>
-      <p id="sig-booking-plain" style="margin:0;padding:0;line-height:1.3;mso-line-height-rule:exactly;">
+      <!-- Booking: plain text fallback — also starts hidden, JS shows if no meetLink -->
+      <p id="sig-booking-plain" style="margin:0;padding:0;line-height:1.3;mso-line-height-rule:exactly;display:none;">
         <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png"
              width="14" height="14" alt="" style="display:inline;vertical-align:middle;border:0;margin-right:6px;">
         <span style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;">Book a meeting with me</span>
@@ -137,37 +142,36 @@
 
     </td>
 
-    <!-- COL 3: QR (146px) -->
-    <td class="sig-qr-td" width="146" valign="middle" align="center"
-      style="width:146px;min-width:146px;padding:18px 16px 18px 10px;vertical-align:middle;text-align:center;">
+    <!-- COL 3: QR — proportional, scales with available space -->
+    <td class="sig-qr-td" width="166" valign="middle" align="center"
+      style="width:166px;min-width:130px;padding:18px 16px 18px 10px;vertical-align:middle;text-align:center;">
 
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"
         class="sig-qr-inner"
-        style="border-collapse:collapse;margin:0 auto;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+        style="border-collapse:collapse;margin:0 auto;mso-table-lspace:0pt;mso-table-rspace:0pt;width:auto;">
         <tr>
-          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png" width="18" height="18" alt="" style="display:block;border:0;">
+          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
           </td>
-          <td width="110" style="width:110px;padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
-          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png" width="18" height="18" alt="" style="display:block;border:0;">
+          <td class="sig-qr-mid-td" width="110" style="width:110px;padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
+          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
           </td>
         </tr>
-        <!-- QR img: transparent placeholder until JS loads real QR -->
         <tr>
           <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;">
-            <img id="qr-img" src="data:image/gif;base64,R0lGODlhbgBuAIAAAP///wAAACH5BAAAAAAALAAAAABuAG4AAAIChF8AOw=="
+            <img id="qr-img" class="sig-qr-img" src="data:image/gif;base64,R0lGODlhbgBuAIAAAP///wAAACH5BAAAAAAALAAAAABuAG4AAAIChF8AOw=="
                  alt="QR Code" width="110" height="110"
-                 style="display:block;width:110px;height:110px;border:0;margin:0 auto;opacity:0.12;">
+                 style="display:block;width:110px;height:110px;max-width:110px;max-height:110px;border:0;margin:0 auto;opacity:0.12;">
           </td>
         </tr>
         <tr>
-          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png" width="18" height="18" alt="" style="display:block;border:0;">
+          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
           </td>
-          <td style="padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
-          <td width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
-            <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png" width="18" height="18" alt="" style="display:block;border:0;">
+          <td class="sig-qr-mid-td" style="padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
+          <td class="sig-qr-corner-td" width="18" height="18" style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+            <img class="sig-qr-corner" src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png" width="18" height="18" alt="" style="display:block;border:0;width:18px;height:18px;">
           </td>
         </tr>
       </table>
@@ -179,7 +183,7 @@
     </td>
   </tr>
 
-  <!-- BANNER ROW — update BANNER_SRC in JS below to change campaign image -->
+  <!-- BANNER ROW -->
   <tr>
     <td colspan="3" id="sig-banner-td" style="padding:0;line-height:0;font-size:0;mso-line-height-rule:exactly;"></td>
   </tr>
@@ -214,8 +218,6 @@
 
   /* ═══════════════════════════════════════════
      BANNER CONFIG
-     Change BANNER_SRC to update for any campaign.
-     Change BANNER_ALT for accessibility.
      ═══════════════════════════════════════════ */
   var BANNER_SRC = 'https://raw.githubusercontent.com/1Parasite/GarcicomSignature/main/assets/Banner%20(1).png';
   var BANNER_ALT = '';
@@ -250,17 +252,19 @@
     document.getElementById('linkedin-link').href = linkedin;
   }
 
-  /* ── Booking: real link vs plain text ── */
+  /* ── FIX 1: Booking — mutually exclusive, both start hidden ──
+     Show the linked version if meetLink exists, plain text otherwise.
+     Only ONE row is ever visible at a time. */
   if (meetLink) {
-    document.getElementById('sig-booking-plain').style.display = 'none';
-    document.getElementById('sig-booking-row').style.display   = 'block';
-    document.getElementById('sig-booking-link').href           = meetLink;
+    document.getElementById('sig-booking-link').href         = meetLink;
+    document.getElementById('sig-booking-row').style.display = 'block';
+    /* sig-booking-plain stays display:none */
+  } else {
+    document.getElementById('sig-booking-plain').style.display = 'block';
+    /* sig-booking-row stays display:none */
   }
 
-  /* ── Banner — use custom image URL if provided, else fall back to BANNER_SRC ── */
-  var activeBannerSrc = bannerLink || BANNER_SRC;
-  /* Banner image: use custom URL if provided, else default BANNER_SRC
-     Banner link: wrap in <a> if bannerLink provided */
+  /* ── Banner ── */
   var activeSrc = bannerImg_ || BANNER_SRC;
   var bannerImgTag = '<img src="' + activeSrc + '" class="sig-banner" alt="' + BANNER_ALT + '" width="600" height="auto"'
     + ' style="display:block;width:600px;height:auto;border:0;outline:0;">';
@@ -303,7 +307,50 @@
     }
   }
 
-  /* ── Copy signature ── */
+  /* ── Proportional QR resize ──
+     After the QR image loads, measure the actual rendered column width
+     and scale the QR + corner decorations proportionally.
+     Max 110px (desktop), min 60px (very small screens).
+     Corners stay at ~16% of QR size. */
+  function resizeQR() {
+    var qrTd = document.querySelector('td.sig-qr-td');
+    var qrImg = document.getElementById('qr-img');
+    if (!qrTd || !qrImg) return;
+
+    var colWidth = qrTd.offsetWidth;
+    /* Reserve padding (26px left + right) and a small margin */
+    var available = Math.max(60, Math.min(110, colWidth - 36));
+    var cornerSize = Math.round(available * 0.16);
+    cornerSize = Math.max(12, Math.min(18, cornerSize));
+
+    /* Resize QR image */
+    qrImg.style.width  = available + 'px';
+    qrImg.style.height = available + 'px';
+
+    /* Resize corner images & their cells */
+    var corners = document.querySelectorAll('img.sig-qr-corner');
+    corners.forEach(function(c) {
+      c.style.width  = cornerSize + 'px';
+      c.style.height = cornerSize + 'px';
+    });
+    var cornerTds = document.querySelectorAll('td.sig-qr-corner-td');
+    cornerTds.forEach(function(td) {
+      td.style.width  = cornerSize + 'px';
+      td.style.height = cornerSize + 'px';
+    });
+    var midTds = document.querySelectorAll('td.sig-qr-mid-td');
+    midTds.forEach(function(td) {
+      td.style.width = available + 'px';
+    });
+  }
+
+  /* Run on load and on resize */
+  window.addEventListener('load', resizeQR);
+  window.addEventListener('resize', resizeQR);
+  /* Also run after QR image is injected (slight delay for canvas→img) */
+  setTimeout(resizeQR, 500);
+
+
   window.copySignature = function () {
     var wrapper = document.getElementById('signature-wrapper');
     var clone   = wrapper.cloneNode(true);
@@ -337,7 +384,6 @@
     showFeedback(ok);
   }
 
-  /* FIX: target only the label span so the SVG icon is never wiped */
   function showFeedback(ok) {
     var label        = document.getElementById('copy-label');
     var btn          = document.getElementById('copy-btn');
