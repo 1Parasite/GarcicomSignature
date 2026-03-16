@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Signature – MS Solutions</title>
+<title>Signature - MS Solutions</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +43,7 @@
   </a>
 </div>
 
-<div class="page-label">Preview — Email Signature</div>
+<div class="page-label">Preview - Email Signature</div>
 
 <div id="signature-wrapper">
 
@@ -56,13 +56,14 @@
     img.sig-logo-img    { width:110px !important; height:auto !important; margin:0 auto !important; display:block !important; }
     span.sig-name-fs    { font-size:16px !important; }
     span.sig-sn-fs      { font-size:16px !important; }
-    table.sig-qr-inner  { margin:0 auto !important; width:auto !important; }
     img.sig-banner      { width:100% !important; height:auto !important; display:block !important; }
     td.sig-info-td td   { white-space:normal !important; }
+    table.sig-qr-inner  { margin:0 auto !important; width:auto !important; }
     img.sig-qr-img      { width:18vw !important; height:18vw !important; max-width:110px !important; max-height:110px !important; min-width:60px !important; min-height:60px !important; }
     img.sig-qr-corner   { width:4vw !important; height:4vw !important; max-width:18px !important; max-height:18px !important; min-width:12px !important; min-height:12px !important; }
     td.sig-qr-corner-td { width:4vw !important; height:4vw !important; max-width:18px !important; min-width:12px !important; }
     td.sig-qr-mid-td    { width:18vw !important; max-width:110px !important; min-width:60px !important; }
+    img.sig-qr-img      { width:18vw !important; height:18vw !important; max-width:110px !important; max-height:110px !important; min-width:60px !important; min-height:60px !important; }
   }
 </style>
 
@@ -85,28 +86,21 @@
     <!-- COL 2: INFO -->
     <td class="sig-info-td" valign="middle" style="padding:18px 10px;vertical-align:middle;">
 
-      <!-- Name -->
       <p style="margin:0 0 3px;padding:0;font-family:Calibri,Arial,sans-serif;font-size:20px;font-weight:700;color:#0C144E;line-height:1.2;mso-line-height-rule:exactly;white-space:nowrap;">
         <span id="sig-name" class="sig-name-fs" style="font-weight:700;color:#0C144E;font-family:Calibri,Arial,sans-serif;font-size:20px;">Name</span>&nbsp;<span id="sig-surname" class="sig-sn-fs" style="font-weight:900;color:#0C144E;font-family:Calibri,Arial,sans-serif;font-size:20px;letter-spacing:0.3px;">SURNAME</span>
       </p>
 
-      <!-- Function -->
       <p id="sig-function" style="margin:0 0 10px;padding:0;font-family:Calibri,Arial,sans-serif;font-size:13px;color:#8788FF;line-height:1.3;mso-line-height-rule:exactly;">Function</p>
 
-      <!-- Email -->
+      <!-- No placeholder email here — JS fills it in from URL params -->
       <p style="margin:0 0 7px;padding:0;line-height:1.3;mso-line-height-rule:exactly;">
-        <a id="sig-email-link" href="mailto:name.surname@mssolutions-group.com"
+        <a id="sig-email-link" href="#"
            style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;text-decoration:none;">
-          <span id="sig-email">name.surname@mssolutions-group.com</span>
+          <span id="sig-email"></span>
         </a>
       </p>
 
-      <!--
-        PHONE ROW
-        Collapsed by default using max-height:0 + overflow:hidden + font-size:0.
-        This works in ALL email clients including Outlook which ignores display:none.
-        JS expands it only when a phone number is provided.
-      -->
+      <!-- Phone row: collapsed by default, JS expands when phone present -->
       <p id="sig-phone-row"
          style="margin:0;padding:0;max-height:0;overflow:hidden;font-size:0;line-height:0;mso-hide:all;">
         <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-03.png"
@@ -116,7 +110,6 @@
               style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;"></span>
       </p>
 
-      <!-- Social icons -->
       <p style="margin:0 0 7px;padding:0;line-height:1.3;mso-line-height-rule:exactly;">
         <a id="linkedin-link" href="https://www.linkedin.com/company/mss-group-sparking-trusted-payment/" target="_blank"
            style="text-decoration:none;border:0;display:inline-block;margin-right:4px;">
@@ -133,13 +126,7 @@
         <span style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;">MS Solutions Group</span>
       </p>
 
-      <!--
-        BOOK A MEETING — SINGLE ROW, ALWAYS VISIBLE.
-        There is only ONE row in the HTML. It always shows.
-        If a meetLink is provided, JS replaces the inner span with a real <a>.
-        If no JS runs (email client), the plain text span stays — still correct.
-        Double rendering is physically impossible with this approach.
-      -->
+      <!-- Book a meeting: single row, JS upgrades to link if meetLink set -->
       <p style="margin:0;padding:0;line-height:1.3;mso-line-height-rule:exactly;">
         <img src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/icones-ms-04.png"
              width="14" height="14" alt=""
@@ -150,16 +137,16 @@
 
     </td>
 
-    <!-- COL 3: QR — proportional, scales with rendered column width -->
+    <!-- COL 3: QR — full cell bg #ECECFF + QR colorLight #ECECFF = seamless purple container -->
     <td class="sig-qr-td" width="166" valign="middle" align="center"
-      style="width:166px;min-width:130px;padding:18px 16px 18px 10px;vertical-align:middle;text-align:center;">
+      style="width:166px;min-width:130px;padding:18px 16px 18px 10px;vertical-align:middle;text-align:center;background-color:#ffffff;">
 
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"
         class="sig-qr-inner"
         style="border-collapse:collapse;margin:0 auto;mso-table-lspace:0pt;mso-table-rspace:0pt;width:auto;">
         <tr>
           <td class="sig-qr-corner-td" width="18" height="18"
-              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;background-color:#ffffff;">
             <img class="sig-qr-corner"
                  src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-04.png"
                  width="18" height="18" alt=""
@@ -168,7 +155,7 @@
           <td class="sig-qr-mid-td" width="110"
               style="width:110px;padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
           <td class="sig-qr-corner-td" width="18" height="18"
-              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;background-color:#ffffff;">
             <img class="sig-qr-corner"
                  src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-01.png"
                  width="18" height="18" alt=""
@@ -176,16 +163,16 @@
           </td>
         </tr>
         <tr>
-          <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;">
+          <td colspan="3" align="center" style="padding:0;line-height:0;font-size:0;background-color:#ffffff;">
             <img id="qr-img" class="sig-qr-img"
-                 src="data:image/gif;base64,R0lGODlhbgBuAIAAAP///wAAACH5BAAAAAAALAAAAABuAG4AAAIChF8AOw=="
+                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                  alt="QR Code" width="110" height="110"
                  style="display:block;width:110px;height:110px;max-width:110px;max-height:110px;border:0;margin:0 auto;opacity:0.12;">
           </td>
         </tr>
         <tr>
           <td class="sig-qr-corner-td" width="18" height="18"
-              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;background-color:#ffffff;">
             <img class="sig-qr-corner"
                  src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-03.png"
                  width="18" height="18" alt=""
@@ -194,7 +181,7 @@
           <td class="sig-qr-mid-td"
               style="padding:0;line-height:0;font-size:0;background-color:#ffffff;"></td>
           <td class="sig-qr-corner-td" width="18" height="18"
-              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;">
+              style="width:18px;height:18px;padding:0;line-height:0;font-size:0;background-color:#ffffff;">
             <img class="sig-qr-corner"
                  src="https://raw.githubusercontent.com/1Parasite/GarcicomSignature/refs/heads/main/assets/coins-02.png"
                  width="18" height="18" alt=""
@@ -245,33 +232,25 @@
 <script>
 (function () {
 
-  /* ════════════════════════════
-     BANNER CONFIG
-     ════════════════════════════ */
   var BANNER_SRC = 'https://raw.githubusercontent.com/1Parasite/GarcicomSignature/main/assets/Banner%20(1).png';
-  var BANNER_ALT = '';
 
-  /* ── URL params ── */
   var params     = new URLSearchParams(window.location.search);
   var rawPhone   = (params.get('phone')     || '').replace(/\D/g, '');
   var meetLink   = params.get('meet')       || '';
   var name       = params.get('name')       || 'Name';
   var surname    = params.get('surname')    || 'SURNAME';
   var func       = params.get('func')       || 'Function';
-  var email      = params.get('email')      || 'name.surname@mssolutions-group.com';
+  var email      = params.get('email')      || '';
   var linkedin   = params.get('linkedin')   || '';
   var bannerLink = params.get('bannerlink') || '';
   var bannerImg  = params.get('bannerimg')  || '';
 
-  /* ── Name / function / email ── */
   document.getElementById('sig-name').textContent     = name;
   document.getElementById('sig-surname').textContent  = surname.toUpperCase();
   document.getElementById('sig-function').textContent = func;
   document.getElementById('sig-email').textContent    = email;
-  document.getElementById('sig-email-link').href      = 'mailto:' + email;
+  document.getElementById('sig-email-link').href      = email ? 'mailto:' + email : '#';
 
-  /* ── Phone ──
-     Expand the collapsed phone row only when a number exists. */
   if (rawPhone) {
     var phoneRow  = document.getElementById('sig-phone-row');
     var phoneSpan = document.getElementById('sig-phone');
@@ -283,34 +262,28 @@
     phoneRow.style.marginBottom = '7px';
   }
 
-  /* ── LinkedIn ── */
   if (linkedin) {
     document.getElementById('linkedin-link').href = linkedin;
   }
 
-  /* ── Book a meeting ──
-     Single row always in DOM. JS upgrades plain span → real <a> if meetLink set.
-     No JS = plain text. Either way only ONE element ever renders. */
   if (meetLink) {
     var bookingSpan = document.getElementById('sig-booking-content');
-    var a = document.createElement('a');
-    a.href        = meetLink;
-    a.target      = '_blank';
+    var a           = document.createElement('a');
+    a.href          = meetLink;
+    a.target        = '_blank';
     a.style.cssText = 'font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;vertical-align:middle;text-decoration:none;';
-    a.textContent = 'Book a meeting with me';
+    a.textContent   = 'Book a meeting with me';
     bookingSpan.parentNode.replaceChild(a, bookingSpan);
   }
 
-  /* ── Banner ── */
   var activeSrc    = bannerImg || BANNER_SRC;
-  var bannerImgTag = '<img src="' + activeSrc + '" class="sig-banner" alt="' + BANNER_ALT + '"'
+  var bannerImgTag = '<img src="' + activeSrc + '" class="sig-banner" alt=""'
     + ' width="600" height="auto"'
     + ' style="display:block;width:600px;height:auto;border:0;outline:0;">';
   document.getElementById('sig-banner-td').innerHTML = bannerLink
     ? '<a href="' + bannerLink + '" target="_blank" style="display:block;border:0;text-decoration:none;">' + bannerImgTag + '</a>'
     : bannerImgTag;
 
-  /* ── QR generation ── */
   var useCustomQR  = params.get('customqr') === '1';
   var customQRData = useCustomQR ? sessionStorage.getItem('customQR') : null;
 
@@ -320,41 +293,57 @@
     qiCustom.style.opacity = '1';
     setTimeout(resizeQR, 50);
   } else {
-    var cp   = new URLSearchParams({ phone: rawPhone, name: name, surname: surname, func: func, email: email, linkedin: linkedin });
+    /* Only non-empty params = shorter URL = fewer QR modules = cleaner code */
+    var cp = new URLSearchParams();
+    if (name)     cp.set('name',     name);
+    if (surname)  cp.set('surname',  surname);
+    if (func)     cp.set('func',     func);
+    if (email)    cp.set('email',    email);
+    if (rawPhone) cp.set('phone',    rawPhone);
+    if (linkedin) cp.set('linkedin', linkedin);
+
     var base = window.location.href.split('?')[0].replace(/signature\.html$/i, '');
+
     try {
       new QRCode(document.getElementById('qr-gen'), {
-        text: base + 'contact.html?' + cp.toString(),
-        width: 200, height: 200,
-        colorDark: '#0C144E', colorLight: '#ffffff',
+        text:         base + 'contact.html?' + cp.toString(),
+        width:        168,
+        height:       168,
+        colorDark:    '#0C144E',
+        colorLight:   '#ECECFF',
         correctLevel: QRCode.CorrectLevel.M
       });
+
       setTimeout(function () {
-        var canvas = document.querySelector('#qr-gen canvas');
-        if (canvas) {
-          var qi           = document.getElementById('qr-img');
-          qi.src           = canvas.toDataURL('image/png');
-          qi.style.opacity = '1';
-          resizeQR();
-        }
+        var qrCanvas = document.querySelector('#qr-gen canvas');
+        if (!qrCanvas) return;
+
+        /* Draw QR onto padded canvas — 28px padding on each side = 224px total */
+        var PAD    = 28;
+        var SIZE   = 168 + PAD * 2;
+        var padded = document.createElement('canvas');
+        padded.width = padded.height = SIZE;
+        var ctx = padded.getContext('2d');
+        ctx.fillStyle = '#ECECFF';
+        ctx.fillRect(0, 0, SIZE, SIZE);
+        ctx.drawImage(qrCanvas, PAD, PAD, 168, 168);
+
+        var qi           = document.getElementById('qr-img');
+        qi.src           = padded.toDataURL('image/png');
+        qi.style.opacity = '1';
+        resizeQR();
       }, 350);
     } catch (e) { console.warn('QR generation failed:', e); }
   }
 
-  /* ── Proportional QR resize ──
-     Measures actual rendered column width, scales QR + corners to fit.
-     Runs on load, resize, and after QR canvas injects. */
   function resizeQR() {
     var qrTd  = document.querySelector('td.sig-qr-td');
     var qrImg = document.getElementById('qr-img');
     if (!qrTd || !qrImg) return;
-
     var available  = Math.max(60, Math.min(110, qrTd.offsetWidth - 36));
     var cornerSize = Math.max(12, Math.min(18, Math.round(available * 0.16)));
-
     qrImg.style.width  = available + 'px';
     qrImg.style.height = available + 'px';
-
     document.querySelectorAll('img.sig-qr-corner').forEach(function (c) {
       c.style.width = c.style.height = cornerSize + 'px';
     });
@@ -370,7 +359,6 @@
   window.addEventListener('resize', resizeQR);
   setTimeout(resizeQR, 500);
 
-  /* ── Copy signature ── */
   window.copySignature = function () {
     var wrapper = document.getElementById('signature-wrapper');
     var clone   = wrapper.cloneNode(true);
@@ -379,7 +367,7 @@
     var sigHTML = clone.innerHTML;
 
     if (navigator.clipboard && window.ClipboardItem) {
-      var hb = new Blob([sigHTML], { type: 'text/html' });
+      var hb = new Blob([sigHTML],           { type: 'text/html'  });
       var tb = new Blob([wrapper.innerText], { type: 'text/plain' });
       navigator.clipboard.write([new ClipboardItem({ 'text/html': hb, 'text/plain': tb })])
         .then(function ()  { showFeedback(true);  })
@@ -393,10 +381,13 @@
     var el = document.createElement('div');
     el.setAttribute('contenteditable', 'true');
     el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none;';
-    el.innerHTML = html;
+    el.innerHTML     = html;
     document.body.appendChild(el);
-    var r = document.createRange(); r.selectNodeContents(el);
-    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    var r = document.createRange();
+    r.selectNodeContents(el);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
     var ok = false;
     try { ok = document.execCommand('copy'); } catch (e) {}
     s.removeAllRanges();
