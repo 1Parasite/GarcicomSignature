@@ -310,7 +310,7 @@
         width:        168,
         height:       168,
         colorDark:    '#0C144E',
-        colorLight:   '#ECECFF',
+        colorLight:   '#C5C6FF',
         correctLevel: QRCode.CorrectLevel.M
       });
 
@@ -324,7 +324,7 @@
         var padded = document.createElement('canvas');
         padded.width = padded.height = SIZE;
         var ctx = padded.getContext('2d');
-        ctx.fillStyle = '#ECECFF';
+        ctx.fillStyle = '#C5C6FF';
         ctx.fillRect(0, 0, SIZE, SIZE);
         ctx.drawImage(qrCanvas, PAD, PAD, 168, 168);
 

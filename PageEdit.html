@@ -479,7 +479,7 @@
   function generateQR() {
     _qrScratch.innerHTML = '';
     /* Render at 168px core — padded canvas adds 28px on each side = 224px with breathing room */
-    new QRCode(_qrScratch, { text: getContactURL(), width: 168, height: 168, colorDark: '#0C144E', colorLight: '#ECECFF', correctLevel: QRCode.CorrectLevel.M });
+    new QRCode(_qrScratch, { text: getContactURL(), width: 168, height: 168, colorDark: '#0C144E', colorLight: '#C5C6FF', correctLevel: QRCode.CorrectLevel.M });
     setTimeout(() => {
       const qrCanvas = _qrScratch.querySelector('canvas');
       if (!qrCanvas) return;
@@ -490,7 +490,7 @@
       const padded = document.createElement('canvas');
       padded.width = padded.height = SIZE;
       const ctx = padded.getContext('2d');
-      ctx.fillStyle = '#ECECFF';
+      ctx.fillStyle = '#C5C6FF';
       ctx.fillRect(0, 0, SIZE, SIZE);
       ctx.drawImage(qrCanvas, PAD, PAD, 168, 168);
 
