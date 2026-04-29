@@ -92,7 +92,6 @@
 
       <p id="sig-function" style="margin:0 0 10px;padding:0;font-family:Calibri,Arial,sans-serif;font-size:13px;color:#8788FF;line-height:1.3;mso-line-height-rule:exactly;">Function</p>
 
-      <!-- No placeholder email here — JS fills it in from URL params -->
       <p style="margin:0 0 7px;padding:0;line-height:1.3;mso-line-height-rule:exactly;">
         <a id="sig-email-link" href="#"
            style="font-family:Calibri,Arial,sans-serif;font-size:13px;color:#0C144E;text-decoration:none;">
@@ -137,7 +136,7 @@
 
     </td>
 
-    <!-- COL 3: QR — full cell bg #ECECFF + QR colorLight #ECECFF = seamless purple container -->
+    <!-- COL 3: QR -->
     <td class="sig-qr-td" width="166" valign="middle" align="center"
       style="width:166px;min-width:130px;padding:18px 16px 18px 10px;vertical-align:middle;text-align:center;background-color:#ffffff;">
 
@@ -231,8 +230,8 @@
 
 <script>
 (function () {
-
-  var BANNER_SRC = 'https://raw.githubusercontent.com/1Parasite/GarcicomSignature/main/assets/Banner%20(1).png';
+  var BANNER_SRC          = 'https://raw.githubusercontent.com/1Parasite/GarcicomSignature/main/assets/signature_v07%20(1).gif';
+  var DEFAULT_BANNER_LINK = 'https://www.mssolutions-group.com/meet-us-at-money-20202-4-june-2026-meet-with-our-experts/';
 
   var params     = new URLSearchParams(window.location.search);
   var rawPhone   = (params.get('phone')     || '').replace(/\D/g, '');
@@ -242,7 +241,7 @@
   var func       = params.get('func')       || 'Function';
   var email      = params.get('email')      || '';
   var linkedin   = params.get('linkedin')   || '';
-  var bannerLink = params.get('bannerlink') || '';
+  var bannerLink = params.get('bannerlink') || DEFAULT_BANNER_LINK;
   var bannerImg  = params.get('bannerimg')  || '';
 
   document.getElementById('sig-name').textContent     = name;
@@ -280,9 +279,10 @@
   var bannerImgTag = '<img src="' + activeSrc + '" class="sig-banner" alt=""'
     + ' width="600" height="auto"'
     + ' style="display:block;width:600px;height:auto;border:0;outline:0;">';
-  document.getElementById('sig-banner-td').innerHTML = bannerLink
-    ? '<a href="' + bannerLink + '" target="_blank" style="display:block;border:0;text-decoration:none;">' + bannerImgTag + '</a>'
-    : bannerImgTag;
+
+  /* bannerLink is now always set (defaults to DEFAULT_BANNER_LINK) */
+  document.getElementById('sig-banner-td').innerHTML =
+    '<a href="' + bannerLink + '" target="_blank" style="display:block;border:0;text-decoration:none;">' + bannerImgTag + '</a>';
 
   var useCustomQR  = params.get('customqr') === '1';
   var customQRData = useCustomQR ? sessionStorage.getItem('customQR') : null;
